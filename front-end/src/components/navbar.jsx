@@ -63,7 +63,7 @@ const PageNavbar = ({ setUser, user }) => {
                   <h2>" "</h2>
 
                   {/*FIX TO DISPLAY THE USER INFO  */}
-                  <h5 className="text-info">Logged in as: {user}</h5>
+                  <h6 className="text-primary">Logged in as: {user}</h6>
                   <h2>" "</h2>
                   <Button
                     variant="outline-danger"

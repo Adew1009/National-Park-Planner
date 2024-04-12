@@ -83,6 +83,7 @@ const VisitedParksPage = () => {
               id={park.id}
               updateVisits={updateVisits} // Pass updateVisits function to VisitedParkCard
             />
+            <br></br>
           </Col>
         ))}
       </Row>

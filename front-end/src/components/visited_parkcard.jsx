@@ -25,7 +25,7 @@ function VisitedParkCard({ images = [], name, journal, id, updateVisits }) {
   }, []);
 
   return (
-    <Card style={{ width: "30rem", height: "50rem" }} data-bs-theme="dark">
+    <Card style={{ width: "30rem", height: "45rem" }} data-bs-theme="dark">
       <Card.Body>
         <Card.Title className="display-6 text-info">{name}</Card.Title>
       </Card.Body>

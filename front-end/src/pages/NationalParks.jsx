@@ -31,7 +31,10 @@ const NationalParksPage = () => {
         <ScrollAreaParks parksArray={parksArray} />
         <br></br>
         <br></br>
-        <Accordion defaultActiveKey="0">
+        <Accordion
+          className="w-50 rounded-md border bg-light"
+          defaultActiveKey="1"
+        >
           <Accordion.Item eventKey="0">
             <Accordion.Header variant="success">
               All National Parks and Monuments by Name
@@ -41,7 +44,11 @@ const NationalParksPage = () => {
                 { name, code },
                 index // Corrected map function syntax
               ) => (
-                <Accordion.Body variant="success" key={index}>
+                <Accordion.Body
+                  className=" bg-light"
+                  variant="success"
+                  key={index}
+                >
                   <Link to={`/park/${name}/${code}`}>{name}</Link>
                 </Accordion.Body>
               )
@@ -50,7 +57,10 @@ const NationalParksPage = () => {
         </Accordion>
         <br></br>
         <br></br>
-        <ListGroup>
+        <ListGroup className="w-50 rounded-md border bg-light">
+          <ListGroup.Item className="text-lg bg-info">
+            All National Parks and Monuments by Name
+          </ListGroup.Item>
           {parksArray.map(
             (
               { name, code },

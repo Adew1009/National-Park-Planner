@@ -189,7 +189,11 @@ const AParkPage = () => {
                       index // Corrected map function syntax
                     ) => (
                       <Carousel.Item interval={4000} key={index}>
-                        <img src={image.url} style={{ width: "100%" }} />
+                        <img
+                          src={image.url}
+                          alt={image.title}
+                          style={{ width: "100%" }}
+                        />
                         <Carousel.Caption>
                           <h3>{image.title}</h3>
                         </Carousel.Caption>

@@ -48,13 +48,6 @@ const Map = ({ latlong }) => {
 
   return (
     <row className="d-block mx-auto img-fluid">
-      <div className="flex items-center space-x-2">
-        {/* <Switch
-          checked={setMapStyle("mapbox://styles/mapbox/streets-v11")}
-          onCheckedChange={setMapStyle()}
-        />
-        <Label htmlFor="airplane-mode">Airplane Mode</Label> */}
-      </div>
       <div>
         <select
           className="text-success outlint-success"

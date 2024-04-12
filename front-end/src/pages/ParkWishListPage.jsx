@@ -69,6 +69,7 @@ const ParkWishListPage = () => {
               updateWishlist={updateWishlist} // Pass updateVisits function to VisitedParkCard
               code={park.parkCode.parkCode}
             />
+            <br></br>
           </Col>
         ))}
       </Row>
