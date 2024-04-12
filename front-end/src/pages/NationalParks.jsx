@@ -7,6 +7,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import StateMenu from "../components/StateMenu";
 import Accordion from "react-bootstrap/Accordion";
+import { ScrollAreaParks } from "@/components/newScroll-area";
 
 const NationalParksPage = () => {
   const parksArray = [];
@@ -24,8 +25,12 @@ const NationalParksPage = () => {
       </div>
       <h2>National Parks and Monuments by State</h2>
       <StateMenu />
+      <br></br>
       <div>
         <h2>All National Parks and Monuments</h2>
+        <ScrollAreaParks parksArray={parksArray} />
+        <br></br>
+        <br></br>
         <Accordion defaultActiveKey="0">
           <Accordion.Item eventKey="0">
             <Accordion.Header variant="success">
@@ -43,6 +48,8 @@ const NationalParksPage = () => {
             )}
           </Accordion.Item>
         </Accordion>
+        <br></br>
+        <br></br>
         <ListGroup>
           {parksArray.map(
             (

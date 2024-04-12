@@ -4,6 +4,7 @@ import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react"; // Import useEffect
 import { api } from "../utilities";
+import { AddVisitAlert } from "./AddVisitAlert";
 
 function WishListCard({ images = [], name, id, updateWishlist, code }) {
   // Initialize images as an empty array
@@ -69,7 +70,7 @@ function WishListCard({ images = [], name, id, updateWishlist, code }) {
   }, []);
 
   return (
-    <Card style={{ width: "30rem", height: "50rem" }} data-bs-theme="dark">
+    <Card style={{ width: "30rem", height: "39rem" }} data-bs-theme="dark">
       <Card.Body>
         <Card.Title className="display-6 text-info">{name}</Card.Title>
       </Card.Body>
@@ -97,9 +98,10 @@ function WishListCard({ images = [], name, id, updateWishlist, code }) {
           <Button variant="danger" onClick={async () => removeWishList(id)}>
             Remove From Wish List
           </Button>
-          <Button onClick={async () => addParkVisit(code)}>
+          <AddVisitAlert parkCode={code} />
+          {/* <Button onClick={async () => addParkVisit(code)}>
             Add to Visited Parks
-          </Button>
+          </Button> */}
         </span>
       </ListGroup>
     </Card>

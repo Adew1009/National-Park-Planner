@@ -14,7 +14,7 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
   const [origin, setOrigin] = useState("");
   const destination = [parkLatLong.longitude, parkLatLong.latitude];
   const [routeGeometry, setRouteGeometry] = useState(null);
-  console.log(routeGeometry);
+  // console.log(routeGeometry);
   const [originCord, setOriginCord] = useState([
     parkLatLong.longitude,
     parkLatLong.latitude,
@@ -29,9 +29,9 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
     accessToken: import.meta.env.VITE_APP_MAP_BOX_ACCESS_TOKEN,
   });
 
-  console.log("routeInfo==>", routeInfo);
+  // console.log("routeInfo==>", routeInfo);
 
-  console.log("parkBoundary==>", parkBoundary);
+  // console.log("parkBoundary==>", parkBoundary);
 
   useEffect(() => {
     localStorage.setItem("mode", "driving");
@@ -57,10 +57,12 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
         .setLngLat(originCord)
         .addTo(map);
 
+      const popup = new mapboxgl.Popup().setText(parkName);
       const ParkMarker = new mapboxgl.Marker({
         color: "Red",
       })
         .setLngLat([parkLatLong.longitude, parkLatLong.latitude])
+        .setPopup(popup)
         .addTo(map);
 
       if (routeGeometry) {
@@ -305,7 +307,9 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
                     .replace(/\b\w/g, (match) => match.toUpperCase())}
                 </span>
               </h4>
+
               <FaArrowTurnDown />
+
               <h4>
                 <span id="to_address_show">{parkName}</span>
               </h4>

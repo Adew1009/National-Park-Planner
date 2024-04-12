@@ -29,7 +29,7 @@ const SignupDialog = ({ setUser }) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Register to National Park Planner</DialogTitle>
+          <DialogTitle>Register for National Park Planner</DialogTitle>
         </DialogHeader>
         {/* <div className="grid gap-4 py-4"> */}
         <div>

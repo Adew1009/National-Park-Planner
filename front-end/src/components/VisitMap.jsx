@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import axios from "axios";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 
 const Map = ({ latlong }) => {
   const mapContainerRef = useRef(null);
@@ -45,19 +47,31 @@ const Map = ({ latlong }) => {
   };
 
   return (
-    <row>
+    <row className="d-block mx-auto img-fluid">
+      <div className="flex items-center space-x-2">
+        {/* <Switch
+          checked={setMapStyle("mapbox://styles/mapbox/streets-v11")}
+          onCheckedChange={setMapStyle()}
+        />
+        <Label htmlFor="airplane-mode">Airplane Mode</Label> */}
+      </div>
       <div>
-        <select value={mapStyle} onChange={handleMapStyleChange} id="map_type">
+        <select
+          className="text-success outlint-success"
+          value={mapStyle}
+          onChange={handleMapStyleChange}
+          id="map_type"
+        >
           <option value="mapbox://styles/mapbox/streets-v11">MAP</option>
           <option value="mapbox://styles/mapbox/satellite-streets-v12">
             SATELLITE
           </option>
         </select>
         <div
-          className="d-block mx-auto img-fluid w-50"
+          className="d-block mx-auto img-fluid w-75"
           ref={mapContainerRef}
           style={{
-            width: "50%",
+            width: "50vw",
             height: "50vh",
             border: "1px solid",
             marginBottom: "3rem",

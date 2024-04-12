@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react"; // Import useEffect
 import { api } from "../utilities";
 import UpdateJournal from "./UpdateJournal";
+import JournalDialog from "./JournalDialog";
 
 function VisitedParkCard({ images = [], name, journal, id, updateVisits }) {
   // Initialize images as an empty array
@@ -52,12 +53,13 @@ function VisitedParkCard({ images = [], name, journal, id, updateVisits }) {
         <p>{journal}</p>
       </Card.Body>
       <ListGroup className="list-group-flush">
-        <UpdateJournal id={id} updateVisits={updateVisits} />
+        {/* <UpdateJournal id={id} updateVisits={updateVisits} /> */}
+
         <span>
           <Button variant="danger" onClick={async () => removeParkVisit(id)}>
             Remove From Visited parks
           </Button>
-          <Button>Update Memory Journal</Button>
+          <JournalDialog id={id} updateVisits={updateVisits} />
         </span>
       </ListGroup>
     </Card>

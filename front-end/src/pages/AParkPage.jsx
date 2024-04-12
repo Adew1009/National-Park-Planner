@@ -12,6 +12,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/esm/Button";
+import { WishlistAlert } from "@/components/WishlistAlert";
+import { AddVisitAlert } from "@/components/AddVisitAlert";
+
 const AParkPage = () => {
   const { name, code } = useParams();
 
@@ -24,6 +27,9 @@ const AParkPage = () => {
   // const [parkName, setParkName] = useState([]);
   const [parkLatLong, setParkLatLong] = useState({});
   const [mapLoading, setMapLoading] = useState(true);
+  const [description, setDescription] = useState("");
+  const [directionsInfo, setDirectionsInfo] = useState("");
+  const [weatherInfo, setWeatherInfo] = useState("");
 
   const getParkData = async () => {
     try {
@@ -34,13 +40,16 @@ const AParkPage = () => {
         longitude: results.park.longitude,
         latitude: results.park.latitude,
       });
-      console.log("aparkpage", parkLatLong);
       setParkImages(results.images);
-      if (results) {
-        setParkData(results);
-      } else {
-        console.error("An error occurred: Invalid response data");
-      }
+      setDescription(results.park.description);
+      setDirectionsInfo(results.park.directionsInfo);
+      setWeatherInfo(results.park.weatherInfo);
+      console.log("description", results);
+      // if (results) {
+      //   setParkData(results);
+      // } else {
+      //   console.error("An error occurred: Invalid response data");
+      // }
     } catch (error) {
       // Handle errors
       console.error("An error occurred:", error);
@@ -56,7 +65,7 @@ const AParkPage = () => {
     try {
       let response = await api.get(`nps/alert/${code}`);
       let results = response.data;
-      console.log("bparkpage", parkLatLong);
+      // console.log("bparkpage", parkLatLong);
       if (results === "There are no current alerts for this park.") {
         setParkAlerts([]);
       } else setParkAlerts(results);
@@ -76,7 +85,7 @@ const AParkPage = () => {
     try {
       let response = await api.get(`visited/all-visits/`);
       let results = response.data;
-      console.log(results);
+      // console.log(results);
       setVisits(results);
       setLoading(false);
     } catch (error) {
@@ -114,50 +123,6 @@ const AParkPage = () => {
     addParkVisit();
   }, []);
 
-  // !  ************* ADDING A PARK TO WISHLIST******************************
-  const [wishlist, setWishlist] = useState([]);
-
-  const getWishlist = async () => {
-    try {
-      let response = await api.get(`wishlist/allwishlist/`);
-      let results = response.data;
-      console.log(results);
-      setWishlist(results);
-      // setLoading(false);
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
-
-  useEffect(() => {
-    getWishlist();
-  }, []);
-
-  const addWishlist = async (parkCode) => {
-    try {
-      console.log("Add Park Function", parkCode);
-      // Check if the parkCode already exists in the visits array
-      if (wishlist.some((wishlist) => wishlist.parkCode === parkCode)) {
-        console.log("This park has already been added.");
-        return; // Exit early if the parkCode already exists
-      }
-
-      let response = await api.post("wishlist/allwishlist/", {
-        parkCode: parkCode,
-      });
-      // If the visit was added successfully, update the visits state
-      setWishlist([...wishlist, response.data]);
-      console.log(wishlist);
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
-
-  useEffect(() => {
-    addWishlist();
-  }, []);
-  // !***************************************** END OF ADD PARK TO WISHLIST CODE ***********************
-
   const getParkBoundary = async () => {
     try {
       let pbresponse = await api.get(`nps/parkboundary/${code}`);
@@ -182,19 +147,8 @@ const AParkPage = () => {
           {name}
         </div>
         <h3 className="p-1 fs-2">
-          {parkData.designation}{" "}
-          <Button
-            variant="outline-danger"
-            onClick={async () => addParkVisit(code)}
-          >
-            Add to Visited Parks
-          </Button>
-          <Button
-            variant="outline-success"
-            onClick={async () => addWishlist(code)}
-          >
-            Add to Park Wishlist
-          </Button>
+          {parkData.designation} <AddVisitAlert parkCode={code} />
+          <WishlistAlert parkCode={code} />
         </h3>
       </div>
       <div>
@@ -265,24 +219,27 @@ const AParkPage = () => {
             </Row>
           </Container>
           <Card.Body>
-            <Card.Title>{parkData.fullName}</Card.Title>
-            <Card.Text>{parkData.description}</Card.Text>
+            <Card.Title>{name}</Card.Title>
+            <Card.Text>{description}</Card.Text>
           </Card.Body>
           <ListGroup className="list-group-flush">
-            <ListGroup.Item>
-              <>Visiting the Park </>
-            </ListGroup.Item>
+            <Card.Body>
+              <Card.Title>Park Weather Information</Card.Title>
+              <Card.Text>{weatherInfo}</Card.Text>
+            </Card.Body>
+            <Card.Body>
+              <Card.Title>Visiting the Park</Card.Title>
+              <Card.Text>{directionsInfo}</Card.Text>
+              <Card.Link href={`https://www.nps.gov/${code}/index.htm`}>
+                {name} Website
+              </Card.Link>
+              <Card.Link
+                href={`https://www.nps.gov/${code}/planyourvisit/directions.htm`}
+              >
+                Directions to {name}
+              </Card.Link>
+            </Card.Body>
           </ListGroup>
-          <Card.Body>
-            <Card.Link href={`https://www.nps.gov/${code}/index.htm`}>
-              {name} Website
-            </Card.Link>
-            <Card.Link
-              href={`https://www.nps.gov/${code}/planyourvisit/directions.htm`}
-            >
-              Directions to {name}
-            </Card.Link>
-          </Card.Body>
         </Card>
       </div>
     </>

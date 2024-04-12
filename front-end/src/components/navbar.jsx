@@ -27,14 +27,9 @@ const PageNavbar = ({ setUser, user }) => {
               {!user ? (
                 <>
                   <SignupDialog setUser={setUser} />
-                  <LoginDialog setUser={setUser} />
-                  <Button variant="outline-warning" as={Link} to="/signup/">
-                    Sign Up
-                  </Button>
                   <h2>" "</h2>
-                  <Button variant="outline-warning" as={Link} to="/login/">
-                    Log In
-                  </Button>
+                  <LoginDialog setUser={setUser} />
+
                   <h2>" "</h2>
                   <h3 className="text-warning">
                     Please Login or Sign Up for full site features
@@ -68,7 +63,7 @@ const PageNavbar = ({ setUser, user }) => {
                   <h2>" "</h2>
 
                   {/*FIX TO DISPLAY THE USER INFO  */}
-                  <h3 className="text-info">Logged in as: {user}</h3>
+                  <h5 className="text-info">Logged in as: {user}</h5>
                   <h2>" "</h2>
                   <Button
                     variant="outline-danger"

@@ -27,14 +27,13 @@ function UpdateJournal({ id, updateVisits }) {
 
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault(); // Prevent default form submission behavior
-        UpdateJournalEntry(); // Call calcRouteDirection function
-      }}
+      onSubmit={(e) => [
+        e.preventDefault(), // Prevent default form submission behavior
+        UpdateJournalEntry(), // Call calcRouteDirection function
+      ]}
     >
       <input
         type="text"
-        rows={4}
         placeholder="Update your memory here"
         value={journal}
         onChange={(e) => {
