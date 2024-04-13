@@ -29,7 +29,10 @@ const LoginDialog = ({ setUser }) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Log In to National Park Planner</DialogTitle>
+          <DialogTitle className="display-4">Login</DialogTitle>
+          <DialogTitle>
+            Enter your email below to login to your account.
+          </DialogTitle>
         </DialogHeader>
         {/* <div className="grid gap-4 py-4"> */}
         <div>

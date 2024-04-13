@@ -4,17 +4,18 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import axios from "axios";
 import MapboxGeocoding from "@mapbox/mapbox-sdk/services/geocoding";
 import { FaArrowTurnDown } from "react-icons/fa6";
-
+const initialItemCount = 4;
+// const directions = routeInfo.length > 0 ? routeInfo[0].legs[0].steps : [];
 const Map = ({ parkLatLong, parkBoundary, parkName }) => {
   const mapContainerRef = useRef(null);
   const [mapStyle, setMapStyle] = useState(
     "mapbox://styles/mapbox/satellite-streets-v12"
   );
+  const [expand, setExpand] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [origin, setOrigin] = useState("");
   const destination = [parkLatLong.longitude, parkLatLong.latitude];
   const [routeGeometry, setRouteGeometry] = useState(null);
-  // console.log(routeGeometry);
   const [originCord, setOriginCord] = useState([
     parkLatLong.longitude,
     parkLatLong.latitude,
@@ -22,21 +23,15 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
   let originCoordinates = [];
   const [routeInfo, setRouteInfo] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
-  const [expand, setExpand] = useState(false);
-  const initialItemCount = 4;
-  const directions = routeInfo.length > 0 ? routeInfo[0].legs[0].steps : [];
   const geocodingClient = MapboxGeocoding({
     accessToken: import.meta.env.VITE_APP_MAP_BOX_ACCESS_TOKEN,
   });
-
-  // console.log("routeInfo==>", routeInfo);
-
-  // console.log("parkBoundary==>", parkBoundary);
 
   useEffect(() => {
     localStorage.setItem("mode", "driving");
   }, []);
 
+  //***** Defines the initial map container ********/
   useEffect(() => {
     mapboxgl.accessToken = import.meta.env.VITE_APP_MAP_BOX_ACCESS_TOKEN;
     const map = new mapboxgl.Map({
@@ -57,6 +52,8 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
         .setLngLat(originCord)
         .addTo(map);
 
+      // TODO ADD LINK TO POP UP BOX
+      // * ********Adds the red marker to the park location on the Map******
       const popup = new mapboxgl.Popup().setText(parkName);
       const ParkMarker = new mapboxgl.Marker({
         color: "Red",
@@ -65,6 +62,7 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
         .setPopup(popup)
         .addTo(map);
 
+      // **********  Adds the driving route to the map **IF True**     ***********
       if (routeGeometry) {
         map.addSource("route", {
           type: "geojson",
@@ -88,19 +86,19 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
           },
         });
 
-        // Get the route bounds
+        //*****Set the map boundary to the route*****
         const bounds = routeGeometry.coordinates.reduce(
           (bounds, coord) => bounds.extend(coord),
           new mapboxgl.LngLatBounds()
         );
 
-        // Zoom out to fit the route within the map view
+        //* Zooms out to fit the route
         map.fitBounds(bounds, {
           padding: 50,
         });
       }
 
-      //Start of Park Boundary
+      //***  Sets the Park Boundary If True ******
       if (parkBoundary) {
         map.addSource("park", {
           type: "geojson",
@@ -141,6 +139,7 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
     });
   }, [mapStyle, routeGeometry]);
 
+  // * sets satelite or road map on change *
   const handleMapStyleChange = (event) => {
     setMapStyle(event.target.value);
   };
@@ -149,9 +148,7 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
     const { value } = event.target;
     setOrigin(value);
 
-    // Call the autocomplete API to get suggestions
     axios
-      //   .get(`https://api.mapbox.com/geocoding/v6/mapbox.places/${value}.json`, {
       .get(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/united%states/${value}.json`,
         {
@@ -178,7 +175,7 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
     setSuggestions([]); // Clear the suggestions
   };
 
-  // calculate direction
+  // calculate direction to the Park
   const calcRouteDirection = async () => {
     if (origin.length > 2) {
       try {
@@ -218,7 +215,7 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
         if (routes.length > 0) {
           const { distance, duration, geometry } = routes[0];
 
-          // Valid directions, use the distance and duration for further processing
+          //*  set distance and duration
           const directions = {
             distance,
             duration,
@@ -245,6 +242,7 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
       setSuggestions([]);
     }, 200);
   };
+
   return (
     <div>
       <div>
@@ -281,7 +279,11 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
                 onBlur={handleInputBlur}
                 autoComplete="off"
               />
-              <input type="submit" value="Get Directions" />
+              <input
+                className="bg-light"
+                type="submit"
+                value="Get Directions"
+              />
             </form>
           </div>
           {isFocused && suggestions.length > 0 && (
@@ -307,9 +309,7 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
                     .replace(/\b\w/g, (match) => match.toUpperCase())}
                 </span>
               </h4>
-
-              <FaArrowTurnDown />
-
+              <h5>To</h5>
               <h4>
                 <span id="to_address_show">{parkName}</span>
               </h4>
@@ -336,22 +336,27 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
       </div>
 
       <div className="text-xs-center text-center">
-        {/* <div className="col-lg-12 map_trans col-xs-12 col-sm-12  text-xs-center text-center"> */}
-        <select value={mapStyle} onChange={handleMapStyleChange} id="map_type">
-          <option value="mapbox://styles/mapbox/streets-v11">MAP</option>
-          <option value="mapbox://styles/mapbox/satellite-streets-v12">
-            SATELLITE
-          </option>
-        </select>
-        <div
-          ref={mapContainerRef}
-          style={{
-            width: "100%",
-            height: "50vh",
-            border: "1px solid",
-            marginBottom: "3rem",
-          }}
-        />
+        <div className="col-lg-12 map_trans col-xs-12 col-sm-12  text-sm-center text-center">
+          <select
+            value={mapStyle}
+            onChange={handleMapStyleChange}
+            id="map_type"
+          >
+            <option value="mapbox://styles/mapbox/streets-v11">MAP</option>
+            <option value="mapbox://styles/mapbox/satellite-streets-v12">
+              SATELLITE
+            </option>
+          </select>
+          <div
+            ref={mapContainerRef}
+            style={{
+              width: "100%",
+              height: "50vh",
+              border: "1px solid",
+              marginBottom: "3rem",
+            }}
+          />
+        </div>
       </div>
     </div>
   );

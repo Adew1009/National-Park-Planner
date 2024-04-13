@@ -37,9 +37,10 @@ function JournalDialog({ id, updateVisits }) {
     }
   };
 
-  useEffect(() => {
-    UpdateJournalEntry();
-  }, []);
+  const handleJournalEntry = async () => {
+    await UpdateJournalEntry(id);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -56,7 +57,7 @@ function JournalDialog({ id, updateVisits }) {
             <Form
               onSubmit={async (e) => [
                 e.preventDefault(), // Prevent default form submission behavior
-                UpdateJournalEntry(), // Call calcRouteDirection function
+                handleJournalEntry(), // Call calcRouteDirection function
               ]}
             >
               <Form.Group className="mb-3" controlId="formBasicEmail">

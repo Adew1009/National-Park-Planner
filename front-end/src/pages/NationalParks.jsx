@@ -8,8 +8,25 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import StateMenu from "../components/StateMenu";
 import Accordion from "react-bootstrap/Accordion";
 import { ScrollAreaParks } from "@/components/newScroll-area";
+import { AddVisitAlert } from "@/components/AddVisitAlert";
+import { WishlistAlert } from "@/components/WishlistAlert";
+import { useParams, useOutletContext } from "react-router-dom";
 
 const NationalParksPage = () => {
+  const {
+    visits,
+    setVisits,
+    latlong,
+    setLatlong,
+    mapLoading,
+    updateVisits,
+    wishlist,
+    setWishlist,
+    wishlatlong,
+    setWishLatlong,
+    wishmapLoading,
+    setWishMapLoading,
+  } = useOutletContext();
   const parksArray = [];
 
   for (const [park, code] of Object.entries(dict)) {
@@ -67,7 +84,16 @@ const NationalParksPage = () => {
               index // Corrected map function syntax
             ) => (
               <ListGroup.Item variant="success" key={index}>
-                <Link to={`/park/${name}/${code}`}>{name}</Link>
+                <Link className="text-lg" to={`/park/${name}/${code}`}>
+                  {name}
+                </Link>
+                <br></br>
+                <AddVisitAlert
+                  parkCode={code}
+                  visits={visits}
+                  setVisits={setVisits}
+                />
+                <WishlistAlert parkCode={code} wishlatlong wishmapLoading />
               </ListGroup.Item>
             )
           )}

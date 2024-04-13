@@ -7,7 +7,8 @@ import { Separator } from "@/components/ui/separator";
 export function ScrollAreaParks({ parksArray }) {
   return (
     <ScrollArea className="h-72 w-50 rounded-md border bg-light">
-      <div className="p-4">
+      <div key={1} className="p-4">
+        {" "}
         <h4 className="mb-4 text- font-medium leading-none">
           All National Parks and Monunment
         </h4>

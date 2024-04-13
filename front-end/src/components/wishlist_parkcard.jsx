@@ -19,60 +19,62 @@ function WishListCard({ images = [], name, id, updateWishlist, code }) {
     }
   };
 
-  useEffect(() => {
-    removeWishList();
-  }, []);
-
-  //! get the visits from the database and set the visits useState
-  const getVisits = async () => {
-    try {
-      let response = await api.get(`visited/all-visits/`);
-      let results = response.data;
-      console.log(results);
-      setVisits(results);
-      setLoading(false);
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
+  const handleRemoveParkwish = async () => {
+    await removeWishList(id);
   };
 
-  useEffect(() => {
-    getVisits();
-  }, []);
+  // //! get the visits from the database and set the visits useState
+  // const getVisits = async () => {
+  //   try {
+  //     let response = await api.get(`visited/all-visits/`);
+  //     let results = response.data;
+  //     console.log(results);
+  //     setVisits(results);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error("An error occurred:", error);
+  //   }
+  // };
 
-  // ! add a visit to the database
-  const [visits, setVisits] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // useEffect(() => {
+  //   getVisits();
+  // }, []);
 
-  const addParkVisit = async (parkCode) => {
-    try {
-      console.log("Add Park Function", parkCode);
-      // Check if the parkCode already exists in the visits array
-      if (visits.some((visit) => visit.parkCode === parkCode)) {
-        console.log("This park has already been visited.");
-        return; // Exit early if the parkCode already exists
-      }
+  // // ! add a visit to the database
+  // const [visits, setVisits] = useState([]);
+  // const [loading, setLoading] = useState(true);
 
-      let response = await api.post("visited/all-visits/", {
-        parkCode: parkCode,
-        journal: "Record a memory here",
-      });
-      // If the visit was added successfully, update the visits state
-      setVisits([...visits, response.data]);
-      console.log(visits);
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
+  // const addParkVisit = async (parkCode) => {
+  //   try {
+  //     console.log("Add Park Function", parkCode);
+  //     // Check if the parkCode already exists in the visits array
+  //     if (visits.some((visit) => visit.parkCode === parkCode)) {
+  //       console.log("This park has already been visited.");
+  //       return; // Exit early if the parkCode already exists
+  //     }
 
-  useEffect(() => {
-    addParkVisit();
-  }, []);
+  //     let response = await api.post("visited/all-visits/", {
+  //       parkCode: parkCode,
+  //       journal: "Record a memory here",
+  //     });
+  //     // If the visit was added successfully, update the visits state
+  //     setVisits([...visits, response.data]);
+  //     console.log(visits);
+  //   } catch (error) {
+  //     console.error("An error occurred:", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   addParkVisit();
+  // }, []);
 
   return (
     <Card style={{ width: "30rem", height: "39rem" }} data-bs-theme="dark">
       <Card.Body>
-        <Card.Title className="display-6 text-info">{name}</Card.Title>
+        <Card.Title className="display-6 text-success bg-info bg-opacity-25">
+          {name}
+        </Card.Title>
       </Card.Body>
       <Carousel>
         {images &&
@@ -87,7 +89,9 @@ function WishListCard({ images = [], name, id, updateWishlist, code }) {
                   style={{ width: "100%", height: "400px" }}
                 />
                 <Carousel.Caption>
-                  <h5 className="text-success bg-info">{image.title}</h5>
+                  <h5 className="text-info bg-success bg-opacity-75">
+                    {image.title}
+                  </h5>
                 </Carousel.Caption>
               </Carousel.Item>
             )

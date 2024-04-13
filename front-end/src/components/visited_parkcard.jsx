@@ -8,7 +8,8 @@ import UpdateJournal from "./UpdateJournal";
 import JournalDialog from "./JournalDialog";
 
 function VisitedParkCard({ images = [], name, journal, id, updateVisits }) {
-  // Initialize images as an empty array
+  // ! ***Change useEffect so removeParkVisit isnt called on page load and only on button is clicked.
+  //? Added handleRemoveParkVisit
   const removeParkVisit = async (id) => {
     try {
       let response = await api.delete(`visited/visit/${id}/`);
@@ -20,14 +21,20 @@ function VisitedParkCard({ images = [], name, journal, id, updateVisits }) {
     }
   };
 
-  useEffect(() => {
-    removeParkVisit();
-  }, []);
+  const handleRemoveParkVisit = async () => {
+    await removeParkVisit(id);
+  };
+
+  // useEffect(() => {
+  //   removeParkVisit();
+  // }, []);
 
   return (
-    <Card style={{ width: "30rem", height: "45rem" }} data-bs-theme="dark">
+    <Card style={{ width: "30rem", height: "46rem" }} data-bs-theme="dark">
       <Card.Body>
-        <Card.Title className="display-6 text-info">{name}</Card.Title>
+        <Card.Title className="display-6 text-info bg-success bg-opacity-25">
+          {name}
+        </Card.Title>
       </Card.Body>
       <Carousel>
         {images &&
@@ -42,7 +49,9 @@ function VisitedParkCard({ images = [], name, journal, id, updateVisits }) {
                   style={{ width: "100%", height: "400px" }}
                 />
                 <Carousel.Caption>
-                  <h5 className="text-success bg-info">{image.title}</h5>
+                  <h5 className="text-success bg-info bg-opacity-75">
+                    {image.title}
+                  </h5>
                 </Carousel.Caption>
               </Carousel.Item>
             )
@@ -56,7 +65,10 @@ function VisitedParkCard({ images = [], name, journal, id, updateVisits }) {
         {/* <UpdateJournal id={id} updateVisits={updateVisits} /> */}
 
         <span>
-          <Button variant="danger" onClick={async () => removeParkVisit(id)}>
+          <Button
+            variant="danger"
+            onClick={async () => handleRemoveParkVisit(id)}
+          >
             Remove From Visited parks
           </Button>
           <JournalDialog id={id} updateVisits={updateVisits} />

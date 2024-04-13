@@ -13,24 +13,24 @@ import { useEffect, useState } from "react";
 import { api } from "../utilities";
 import axios from "axios";
 
-export function WishlistAlert({ parkCode }) {
-  const [wishlist, setWishlist] = useState([]);
+export function WishlistAlert({ parkCode, wishlist, setWishlist }) {
+  // const [wishlist, setWishlist] = useState([]);
 
-  const getWishlist = async () => {
-    try {
-      let response = await api.get(`wishlist/allwishlist/`);
-      let results = response.data;
-      // console.log(results);
-      setWishlist(results);
-      // setLoading(false);
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
+  // const getWishlist = async () => {
+  //   try {
+  //     let response = await api.get(`wishlist/allwishlist/`);
+  //     let results = response.data;
+  //     // console.log(results);
+  //     setWishlist(results);
+  //     // setLoading(false);
+  //   } catch (error) {
+  //     console.error("An error occurred:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getWishlist();
-  }, []);
+  // useEffect(() => {
+  //   getWishlist();
+  // }, []);
 
   const addWishlist = async (parkCode) => {
     try {
@@ -52,16 +52,16 @@ export function WishlistAlert({ parkCode }) {
     }
   };
 
-  useEffect(() => {
-    addWishlist();
-  }, []);
+  const handleAddWishlist = async () => {
+    await addWishlist(parkCode);
+  };
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
           variant="outline-success"
-          onClick={async () => addWishlist(parkCode)}
+          onClick={async () => handleAddWishlist(parkCode)}
         >
           Add to Park Wishlist
         </Button>

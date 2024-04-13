@@ -13,24 +13,24 @@ import { useEffect, useState } from "react";
 import { api } from "../utilities";
 import axios from "axios";
 
-export function AddVisitAlert({ parkCode }) {
-  const [visits, setVisits] = useState([]);
+export function AddVisitAlert({ parkCode, visits, setVisits }) {
+  // const [visits, setVisits] = useState([]);
 
-  //! get the visits from the database and set the visits useState
-  const getVisits = async () => {
-    try {
-      let response = await api.get(`visited/all-visits/`);
-      let results = response.data;
-      // console.log(results);
-      setVisits(results);
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
+  // //! get the visits from the database and set the visits useState
+  // const getVisits = async () => {
+  //   try {
+  //     let response = await api.get(`visited/all-visits/`);
+  //     let results = response.data;
+  //     // console.log(results);
+  //     setVisits(results);
+  //   } catch (error) {
+  //     console.error("An error occurred:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getVisits();
-  }, []);
+  // useEffect(() => {
+  //   getVisits();
+  // }, []);
 
   // ! add a visit to the database
   const addParkVisit = async (parkCode) => {
@@ -54,16 +54,21 @@ export function AddVisitAlert({ parkCode }) {
     }
   };
 
-  useEffect(() => {
-    addParkVisit();
-  }, []);
+  //! Change to a method to handle addPark
+  // useEffect(() => {
+  //   addParkVisit();
+  // }, []);
+
+  const handleAddParkVisit = async () => {
+    await addParkVisit(id);
+  };
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
           variant="outline-danger"
-          onClick={async () => addParkVisit(parkCode)}
+          onClick={async () => handleAddParkVisit(parkCode)}
         >
           Add to Visited Parks
         </Button>

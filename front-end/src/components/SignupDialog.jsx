@@ -29,7 +29,13 @@ const SignupDialog = ({ setUser }) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Register for National Park Planner</DialogTitle>
+          <DialogTitle className="display-4">Register</DialogTitle>
+        </DialogHeader>
+
+        <DialogHeader>
+          <DialogTitle>
+            Enter Your Email and Password to Register for National Park Planner
+          </DialogTitle>
         </DialogHeader>
         {/* <div className="grid gap-4 py-4"> */}
         <div>
@@ -58,7 +64,7 @@ const SignupDialog = ({ setUser }) => {
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                   type="password"
-                  placeholder="Password"
+                  placeholder="Enter Password"
                 />
               </Form.Group>
               <Button variant="primary" type="submit">

@@ -17,11 +17,13 @@ import { AddVisitAlert } from "@/components/AddVisitAlert";
 
 const AParkPage = () => {
   const { name, code } = useParams();
+  const { visits, setVisits, latlong, setLatlong, updateVisits } =
+    useOutletContext();
 
   const [parkAlerts, setParkAlerts] = useState([]);
   const [parkBoundary, setParkBoundary] = useState([]);
   const [parkData, setParkData] = useState({});
-  const [visits, setVisits] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [parkImages, setParkImages] = useState([]);
   // const [parkName, setParkName] = useState([]);
@@ -30,6 +32,7 @@ const AParkPage = () => {
   const [description, setDescription] = useState("");
   const [directionsInfo, setDirectionsInfo] = useState("");
   const [weatherInfo, setWeatherInfo] = useState("");
+  const [designation, setDesignation] = useState("");
 
   const getParkData = async () => {
     try {
@@ -44,6 +47,7 @@ const AParkPage = () => {
       setDescription(results.park.description);
       setDirectionsInfo(results.park.directionsInfo);
       setWeatherInfo(results.park.weatherInfo);
+      setDesignation(results.park.designation);
       console.log("description", results);
       // if (results) {
       //   setParkData(results);
@@ -146,10 +150,9 @@ const AParkPage = () => {
           {" "}
           {name}
         </div>
-        <h3 className="p-1 fs-2">
-          {parkData.designation} <AddVisitAlert parkCode={code} />
-          <WishlistAlert parkCode={code} />
-        </h3>
+        <h3 className="p-1 fs-2">{designation} </h3>
+        <AddVisitAlert parkCode={code} />
+        <WishlistAlert parkCode={code} />
       </div>
       <div>
         <Card style={{ width: "100%" }}>

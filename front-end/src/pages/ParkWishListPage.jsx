@@ -5,49 +5,59 @@ import WishListCard from "../components/wishlist_parkcard";
 import { api } from "../utilities";
 import VisitMap from "../components/VisitMap";
 import Spinner from "react-bootstrap/Spinner";
+import { useParams, useOutletContext } from "react-router-dom";
 
 const ParkWishListPage = () => {
-  const [wishlist, setWishlist] = useState([]);
-  const [latlong, setLatlong] = useState([]);
-  const [mapLoading, setMapLoading] = useState(true);
-  // const [loading, setLoading] = useState(true);
+  const {
+    wishlist,
+    setWishlist,
+    wishlatlong,
+    setWishLatlong,
+    wishmapLoading,
+    setWishMapLoading,
+    updateWishlist,
+  } = useOutletContext();
+  //   const [wishlist, setWishlist] = useState([]);
+  //   const [wishlatlong, setWishLatlong] = useState([]);
+  //   const [wishmapLoading, setWishMapLoading] = useState(true);
+  //   // const [loading, setLoading] = useState(true);
 
-  //! get the visits from the database and set the visits useState
-  const getWishlist = async () => {
-    try {
-      let response = await api.get(`wishlist/allwishlist/`);
-      let results = response.data;
-      console.log("results", results);
-      setWishlist(results);
-      // setLoading(false);
-      const latlonglist = [];
-      results.map((park) =>
-        latlonglist.push([
-          [park.parkCode.longitude, park.parkCode.latitude],
-          park.parkCode.fullName,
-        ])
-      );
-      setLatlong(latlonglist);
-      console.log("latlonglist", latlonglist);
-      setMapLoading(false);
-    } catch (error) {
-      console.error("An error occurred:", error);
-    }
-  };
+  //   //! get the visits from the database and set the visits useState
+  //   const getWishlist = async () => {
+  //     try {
+  //       let response = await api.get(`wishlist/allwishlist/`);
+  //       let results = response.data;
+  //       console.log("results", results);
+  //       setWishlist(results);
+  //       // setLoading(false);
+  //       const latlonglist = [];
+  //       results.map((park) =>
+  //         latlonglist.push([
+  //           [park.parkCode.longitude, park.parkCode.latitude],
+  //           park.parkCode.fullName,
+  //         ])
+  //       );
+  //       setWishLatlong(latlonglist);
+  //       console.log("latlonglist", latlonglist);
+  //       setWishMapLoading(false);
+  //     } catch (error) {
+  //       console.error("An error occurred:", error);
+  //     }
+  //   };
 
-  useEffect(() => {
-    getWishlist();
-  }, []);
+  //   useEffect(() => {
+  //     getWishlist();
+  //   }, []);
 
-  const updateWishlist = () => {
-    getWishlist();
-    setMapLoading(true);
-  };
+  //   const updateWishlist = () => {
+  //     getWishlist();
+  //     setWishMapLoading(true);
+  //   };
 
   return (
     <>
       <h1>Park Wishlist</h1>
-      {mapLoading ? (
+      {wishmapLoading ? (
         <div>
           <h1>
             <Spinner animation="border" variant="success" />
@@ -57,7 +67,7 @@ const ParkWishListPage = () => {
           </h1>
         </div>
       ) : (
-        <VisitMap latlong={latlong} />
+        <VisitMap latlong={wishlatlong} />
       )}
       <Row>
         {wishlist.map((park) => (
