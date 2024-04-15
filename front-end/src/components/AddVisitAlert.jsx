@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { api } from "../utilities";
 import axios from "axios";
 
-export function AddVisitAlert({ parkCode, visits, setVisits }) {
+export function AddVisitAlert({ parkCode, visits, setVisits, updateVisits }) {
   // const [visits, setVisits] = useState([]);
 
   // //! get the visits from the database and set the visits useState
@@ -33,7 +33,7 @@ export function AddVisitAlert({ parkCode, visits, setVisits }) {
   // }, []);
 
   // ! add a visit to the database
-  const addParkVisit = async (parkCode) => {
+  const addParkVisit = async (parkCode, visits, setVisits) => {
     try {
       // console.log("Add Park Function", parkCode);
       // Check if the parkCode already exists in the visits array
@@ -49,25 +49,21 @@ export function AddVisitAlert({ parkCode, visits, setVisits }) {
       // If the visit was added successfully, update the visits state
       setVisits([...visits, response.data]);
       console.log(visits);
+      updateVisits();
     } catch (error) {
       console.error("An error occurred:", error);
     }
   };
 
-  //! Change to a method to handle addPark
-  // useEffect(() => {
-  //   addParkVisit();
-  // }, []);
-
   const handleAddParkVisit = async () => {
-    await addParkVisit(id);
+    await addParkVisit(parkCode, visits, setVisits);
   };
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
-          variant="outline-danger"
+          variant="outline-secondary"
           onClick={async () => handleAddParkVisit(parkCode)}
         >
           Add to Visited Parks

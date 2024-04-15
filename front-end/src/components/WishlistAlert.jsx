@@ -13,7 +13,12 @@ import { useEffect, useState } from "react";
 import { api } from "../utilities";
 import axios from "axios";
 
-export function WishlistAlert({ parkCode, wishlist, setWishlist }) {
+export function WishlistAlert({
+  parkCode,
+  wishlist,
+  setWishlist,
+  updateWishlist,
+}) {
   // const [wishlist, setWishlist] = useState([]);
 
   // const getWishlist = async () => {
@@ -47,6 +52,7 @@ export function WishlistAlert({ parkCode, wishlist, setWishlist }) {
       // If the visit was added successfully, update the visits state
       setWishlist([...wishlist, response.data]);
       console.log(wishlist);
+      updateWishlist();
     } catch (error) {
       console.error("An error occurred:", error);
     }

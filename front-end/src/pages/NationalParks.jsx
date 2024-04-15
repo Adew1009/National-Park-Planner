@@ -11,7 +11,9 @@ import { ScrollAreaParks } from "@/components/newScroll-area";
 import { AddVisitAlert } from "@/components/AddVisitAlert";
 import { WishlistAlert } from "@/components/WishlistAlert";
 import { useParams, useOutletContext } from "react-router-dom";
-
+import { RemoveVisitAlert } from "@/components/RemoveVisitAlert";
+import { RemoveWishlistAlert } from "@/components/RemoveWishlistAlert";
+import StateMap from "@/components/stateMap";
 const NationalParksPage = () => {
   const {
     visits,
@@ -26,6 +28,7 @@ const NationalParksPage = () => {
     setWishLatlong,
     wishmapLoading,
     setWishMapLoading,
+    updateWishlist,
   } = useOutletContext();
   const parksArray = [];
 
@@ -35,6 +38,25 @@ const NationalParksPage = () => {
       code: code,
     });
   }
+
+  const getID = (parkCode, list) => {
+    if (!list) {
+      return null;
+    }
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].parkCode.parkCode === parkCode) {
+        return list[i].id;
+      }
+    }
+    return null;
+  };
+
+  // const handleGetID = async (parkCode, list) => {
+  //   await getID(parkCode, list);
+  // };
+  console.log(wishlist.some((wish) => wish.parkCode.parkCode === "afam"));
+  console.log(getID("afam", wishlist));
+  console.log(wishlist);
   return (
     <>
       <div>
@@ -42,6 +64,8 @@ const NationalParksPage = () => {
       </div>
       <h2>National Parks and Monuments by State</h2>
       <StateMenu />
+      <br></br>
+      <StateMap />
       <br></br>
       <div>
         <h2>All National Parks and Monuments</h2>
@@ -88,12 +112,36 @@ const NationalParksPage = () => {
                   {name}
                 </Link>
                 <br></br>
-                <AddVisitAlert
-                  parkCode={code}
-                  visits={visits}
-                  setVisits={setVisits}
-                />
-                <WishlistAlert parkCode={code} wishlatlong wishmapLoading />
+                {visits.some((visit) => visit.parkCode.parkCode === code) ? (
+                  <RemoveVisitAlert
+                    id={getID(code, visits)}
+                    visits={visits}
+                    setVisits={setVisits}
+                    updateVisits={updateVisits}
+                  />
+                ) : (
+                  <AddVisitAlert
+                    parkCode={code}
+                    visits={visits}
+                    setVisits={setVisits}
+                    updateVisits={updateVisits}
+                  />
+                )}
+                {wishlist.some((wish) => wish.parkCode.parkCode === code) ? (
+                  <RemoveWishlistAlert
+                    id={getID(code, wishlist)}
+                    wishlist={wishlist}
+                    setWishlist={setWishlist}
+                    updateWishlist={updateWishlist}
+                  />
+                ) : (
+                  <WishlistAlert
+                    parkCode={code}
+                    wishlist={wishlist}
+                    setWishlist={setWishlist}
+                    updateWishlist={updateWishlist}
+                  />
+                )}
               </ListGroup.Item>
             )
           )}
@@ -104,25 +152,3 @@ const NationalParksPage = () => {
 };
 
 export default NationalParksPage;
-
-// const [allparks, setAllparks] = useState([]);
-
-// const getAllParks = async () => {
-//   try {
-//     let response = await axios.get(
-//       "https://developer.nps.gov/api/v1/parks?limit=1&api_key=IeNCbfYIqnMxGbTQN2UiPI6gxBSWPXfIcqyYGnde"
-//     );
-//     let results = response.data.data;
-//     setAllparks(results);
-//   } catch (error) {
-//     console.error("An error occurred:", error);
-//   }
-// };
-// console.log(data);
-
-// useEffect(() => {
-//   getAllParks();
-// }, []);
-// if (!allparks) {
-//   return <h1> Loading ...</h1>;
-// }
