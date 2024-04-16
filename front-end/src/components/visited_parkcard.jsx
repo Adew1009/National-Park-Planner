@@ -25,10 +25,6 @@ function VisitedParkCard({ images = [], name, journal, id, updateVisits }) {
     await removeParkVisit(id);
   };
 
-  // useEffect(() => {
-  //   removeParkVisit();
-  // }, []);
-
   return (
     <Card style={{ width: "30rem", height: "46rem" }} data-bs-theme="dark">
       <Card.Body>
@@ -71,7 +67,11 @@ function VisitedParkCard({ images = [], name, journal, id, updateVisits }) {
           >
             Remove From Visited parks
           </Button>
-          <JournalDialog id={id} updateVisits={updateVisits} />
+          <JournalDialog
+            id={id}
+            updateVisits={updateVisits}
+            currentJournal={journal}
+          />
         </span>
       </ListGroup>
     </Card>

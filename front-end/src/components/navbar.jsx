@@ -18,7 +18,7 @@ const PageNavbar = ({ setUser, user }) => {
         data-bs-theme="dark"
       >
         <Container>
-          <Navbar.Brand className="display- text-success-emphasis" href="/">
+          <Navbar.Brand className="display- text-success" href="/">
             National Park Planner
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -37,10 +37,11 @@ const PageNavbar = ({ setUser, user }) => {
                 </>
               ) : (
                 <>
-                  <Button variant="outline-success" as={Link} to="/">
+                  {/* <Button size="sm" variant="outline-success" as={Link} to="/">
                     Home
                   </Button>
-                  <h2>" "</h2>
+                  <h2>" "</h2> */}
+
                   <Button variant="outline-success" as={Link} to="/allparks">
                     National Parks
                   </Button>

@@ -348,6 +348,7 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
             </option>
           </select>
           <div
+            className="rounded"
             ref={mapContainerRef}
             style={{
               width: "100%",

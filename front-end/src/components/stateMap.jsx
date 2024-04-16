@@ -8,9 +8,7 @@ import { Switch } from "@/components/ui/switch";
 
 const StateMap = () => {
   const mapContainerRef = useRef(null);
-  const [mapStyle, setMapStyle] = useState(
-    "mapbox://styles/mapbox/satellite-streets-v12"
-  );
+  const [mapStyle, setMapStyle] = useState("mapbox://styles/mapbox/standard");
 
   const navigate = useNavigate(); // Use useNavigate hook
 
@@ -68,7 +66,7 @@ const StateMap = () => {
     <div>
       <div>
         <div
-          className="d-block mx-auto img-fluid w-75"
+          className="d-block rounded mx-auto img-fluid w-75"
           ref={mapContainerRef}
           style={{
             width: "75vw",

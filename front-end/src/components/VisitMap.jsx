@@ -2,8 +2,9 @@ import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-const Map = ({ latlong }) => {
+const Map = ({ latlong, code }) => {
   const mapContainerRef = useRef(null);
   const [mapStyle, setMapStyle] = useState(
     "mapbox://styles/mapbox/satellite-streets-v12"
@@ -29,6 +30,7 @@ const Map = ({ latlong }) => {
       if (latlong) {
         latlong.forEach((coord) => {
           const popup = new mapboxgl.Popup().setText(coord[1]);
+
           const marker = new mapboxgl.Marker({
             color: "red",
           })
@@ -45,7 +47,7 @@ const Map = ({ latlong }) => {
   };
 
   return (
-    <row className="d-block mx-auto img-fluid w-75">
+    <row className="d-block mx-auto img-fluid w-100 rounded">
       <div>
         <select value={mapStyle} onChange={handleMapStyleChange} id="map_type">
           <option value="mapbox://styles/mapbox/streets-v11">MAP</option>
@@ -54,7 +56,7 @@ const Map = ({ latlong }) => {
           </option>
         </select>
         <div
-          className="d-block mx-auto img-fluid w-75"
+          className="d-block mx-auto img-fluid w-75 rounded"
           ref={mapContainerRef}
           style={{
             width: "50vw",

@@ -33,6 +33,7 @@ function App() {
         latlonglist.push([
           [park.parkCode.longitude, park.parkCode.latitude],
           park.parkCode.fullName,
+          park.parkCode,
         ])
       );
       setLatlong(latlonglist);

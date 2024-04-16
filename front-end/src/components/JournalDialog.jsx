@@ -14,11 +14,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "./ui/textarea";
+import { ScrollAreaJournal } from "./newScroll-area";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function JournalDialog({ id, updateVisits }) {
+function JournalDialog({ id, updateVisits, currentJournal }) {
   const [journal, setJournal] = useState("");
 
   const handleInputChange = (event) => {
@@ -42,44 +43,46 @@ function JournalDialog({ id, updateVisits }) {
   };
 
   return (
-    <Dialog>
+    <Dialog style={{ width: "100%", maxHeight: "none" }}>
       <DialogTrigger asChild>
         <Button variant="outline-light">Update Journal</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Update Your Journal Entry Here</DialogTitle>
-        </DialogHeader>
-        {/* <div className="grid gap-4 py-4"> */}
-        <div>
-          {/* <div className="grid grid-cols-4 items-center gap-4"> */}
+      <div style={{ width: "100%", maxHeight: "none" }}>
+        <DialogContent
+          style={{ overflow: "auto", width: "100%", maxHeight: "none" }}
+        >
+          <DialogHeader>
+            <DialogTitle>Update Your Journal Entry Here</DialogTitle>
+          </DialogHeader>
           <div>
-            <Form
-              onSubmit={async (e) => [
-                e.preventDefault(), // Prevent default form submission behavior
-                handleJournalEntry(), // Call calcRouteDirection function
-              ]}
-            >
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Textarea
-                  onChange={(e) => {
-                    handleInputChange(e);
-                  }}
-                  value={journal}
-                  type="text"
-                  placeholder="Update Your Journal here"
-                />
-                <Form.Text className="text-muted"></Form.Text>
-              </Form.Group>
+            <div>
+              <Form
+                onSubmit={async (e) => [
+                  e.preventDefault(), // Prevent default form submission behavior
+                  handleJournalEntry(), // Call calcRouteDirection function
+                ]}
+              >
+                <Form.Group className="mb-3">
+                  <Textarea
+                    onChange={(e) => {
+                      handleInputChange(e);
+                    }}
+                    value={journal}
+                    type="text"
+                    placeholder="Update Your Journal here"
+                  />
+                  <Form.Text className="text-muted"></Form.Text>
+                </Form.Group>
 
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-            </Form>
-            <Form></Form>
+                <Button variant="primary" type="submit">
+                  Submit
+                </Button>
+              </Form>
+              <Form></Form>
+            </div>
           </div>
-        </div>
-      </DialogContent>
+        </DialogContent>
+      </div>
     </Dialog>
   );
 }

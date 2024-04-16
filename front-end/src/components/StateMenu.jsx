@@ -59,7 +59,7 @@ function StateMenu() {
   return (
     <Dropdown>
       <Dropdown.Toggle variant="success" id="Parks By State">
-        Parks By State
+        Click to Find Parks By State
       </Dropdown.Toggle>
 
       <Dropdown.Menu>

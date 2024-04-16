@@ -16,22 +16,6 @@ import axios from "axios";
 export function AddVisitAlert({ parkCode, visits, setVisits, updateVisits }) {
   // const [visits, setVisits] = useState([]);
 
-  // //! get the visits from the database and set the visits useState
-  // const getVisits = async () => {
-  //   try {
-  //     let response = await api.get(`visited/all-visits/`);
-  //     let results = response.data;
-  //     // console.log(results);
-  //     setVisits(results);
-  //   } catch (error) {
-  //     console.error("An error occurred:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getVisits();
-  // }, []);
-
   // ! add a visit to the database
   const addParkVisit = async (parkCode, visits, setVisits) => {
     try {

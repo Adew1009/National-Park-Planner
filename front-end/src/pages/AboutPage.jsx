@@ -9,6 +9,7 @@ const AboutPage = () => {
         backgroundImage: `url("https://images.pexels.com/photos/957079/hintersee-ramsau-berchtesgaden-bavaria-957079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        backgroundAttachment: "fixed",
         width: "100%",
         height: "100vh",
       }}

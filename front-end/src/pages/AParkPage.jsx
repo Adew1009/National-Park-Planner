@@ -14,11 +14,22 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/esm/Button";
 import { WishlistAlert } from "@/components/WishlistAlert";
 import { AddVisitAlert } from "@/components/AddVisitAlert";
+import { RemoveVisitAlert } from "@/components/RemoveVisitAlert";
+import { RemoveWishlistAlert } from "@/components/RemoveWishlistAlert";
 
 const AParkPage = () => {
   const { name, code } = useParams();
-  const { visits, setVisits, latlong, setLatlong, updateVisits } =
-    useOutletContext();
+  const {
+    visits,
+    setVisits,
+    latlong,
+    setLatlong,
+
+    updateVisits,
+    wishlist,
+    setWishlist,
+    updateWishlist,
+  } = useOutletContext();
 
   const [parkAlerts, setParkAlerts] = useState([]);
   const [parkBoundary, setParkBoundary] = useState([]);
@@ -131,11 +142,16 @@ const AParkPage = () => {
     try {
       let pbresponse = await api.get(`nps/parkboundary/${code}`);
       let pbresults = pbresponse.data;
-      setParkBoundary(pbresults);
-      // console.log(parkBoundary);
+      if (pbresults == []) {
+        setParkBoundary(null);
+      } else {
+        setParkBoundary(pbresults);
+      }
+      console.log(parkBoundary);
       setMapLoading(false);
     } catch (error) {
       console.error("An error occurred:", error);
+      setMapLoading(false);
     }
   };
 
@@ -143,112 +159,166 @@ const AParkPage = () => {
     getParkBoundary();
   }, []);
 
+  const getID = (parkCode, list) => {
+    if (!list) {
+      return null;
+    }
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].parkCode.parkCode === parkCode) {
+        return list[i].id;
+      }
+    }
+    return null;
+  };
+
   return (
     <>
-      <div>
-        <div className="display-1  shadow-lg-sucess  roundedsticky-top text-success-emphasis">
-          {" "}
-          {name}
+      <main
+        style={{
+          backgroundImage: `url("https://images.pexels.com/photos/957079/hintersee-ramsau-berchtesgaden-bavaria-957079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          width: "100%",
+          height: "100vh",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        <div>
+          <div className="display-1  shadow-lg-sucess  roundedsticky-top text-success-emphasis">
+            {" "}
+            {name}
+          </div>
+          <h3 className="p-1 fs-2">{designation} </h3>
+          {visits.some((visit) => visit.parkCode.parkCode === code) ? (
+            <RemoveVisitAlert
+              id={getID(code, visits)}
+              visits={visits}
+              setVisits={setVisits}
+              updateVisits={updateVisits}
+            />
+          ) : (
+            <AddVisitAlert
+              parkCode={code}
+              visits={visits}
+              setVisits={setVisits}
+              updateVisits={updateVisits}
+            />
+          )}
+          {wishlist.some((wish) => wish.parkCode.parkCode === code) ? (
+            <RemoveWishlistAlert
+              id={getID(code, wishlist)}
+              wishlist={wishlist}
+              setWishlist={setWishlist}
+              updateWishlist={updateWishlist}
+            />
+          ) : (
+            <WishlistAlert
+              parkCode={code}
+              wishlist={wishlist}
+              setWishlist={setWishlist}
+              updateWishlist={updateWishlist}
+            />
+          )}
         </div>
-        <h3 className="p-1 fs-2">{designation} </h3>
-        <AddVisitAlert parkCode={code} />
-        <WishlistAlert parkCode={code} />
-      </div>
-      <div>
-        <Card style={{ width: "100%" }}>
-          <ListGroup>
-            {parkAlerts.length === 0 ? (
-              <ListGroup.Item
-                className="p-3  text-success-emphasis bg-success-subtle border border-success-subtle rounded-3"
-                interval={4000}
-              >
-                {"There are no current alerts for this park."}
-              </ListGroup.Item>
-            ) : (
-              <>
-                <ListGroup.Item className="p-2 fs-3 fw-bolder text-danger-emphasis bg-danger-subtle border border-danger rounded-3">
-                  {" "}
-                  PARK ALERTS
+        <div>
+          <Card style={{ width: "100%" }}>
+            <ListGroup>
+              {parkAlerts.length === 0 ? (
+                <ListGroup.Item
+                  className="p-3  text-success-emphasis bg-success-subtle border border-success-subtle rounded-3"
+                  interval={4000}
+                >
+                  {"There are no current alerts for this park."}
                 </ListGroup.Item>
-                {parkAlerts.map((alert, index) => (
-                  <ListGroup.Item
-                    className="p-2 text-danger-emphasis bg-danger-subtle border border-danger rounded-1"
-                    interval={4000}
-                    key={index}
-                  >
-                    {alert.description}
+              ) : (
+                <>
+                  <ListGroup.Item className="p-2 fs-3 fw-bolder text-danger-emphasis bg-danger-subtle border border-danger rounded-3">
+                    {" "}
+                    PARK ALERTS
                   </ListGroup.Item>
-                ))}
-              </>
-            )}
-          </ListGroup>
-          <Container>
-            <Row>
-              <Col>
-                <Carousel>
-                  {parkImages.map(
-                    (
-                      image,
-                      index // Corrected map function syntax
-                    ) => (
-                      <Carousel.Item interval={4000} key={index}>
-                        <img
-                          src={image.url}
-                          alt={image.title}
-                          style={{ width: "100%" }}
-                        />
-                        <Carousel.Caption>
-                          <h3>{image.title}</h3>
-                        </Carousel.Caption>
-                      </Carousel.Item>
-                    )
+                  {parkAlerts.map((alert, index) => (
+                    <ListGroup.Item
+                      className="p-2 text-danger-emphasis bg-danger-subtle border border-danger rounded-1"
+                      interval={4000}
+                      key={index}
+                    >
+                      {alert.description}
+                    </ListGroup.Item>
+                  ))}
+                </>
+              )}
+            </ListGroup>
+            <Container>
+              <Row>
+                <Col>
+                  <Carousel>
+                    {parkImages.map(
+                      (
+                        image,
+                        index // Corrected map function syntax
+                      ) => (
+                        <Carousel.Item interval={4000} key={index}>
+                          <img
+                            src={image.url}
+                            alt={image.title}
+                            style={{ width: "100%" }}
+                          />
+                          <Carousel.Caption>
+                            <h3>{image.title}</h3>
+                          </Carousel.Caption>
+                        </Carousel.Item>
+                      )
+                    )}
+                  </Carousel>
+                </Col>
+                <Col>
+                  {mapLoading ? (
+                    <div>
+                      <h1>
+                        <Spinner animation="border" variant="success" />
+                        <Spinner animation="grow" variant="success" />
+                        Loading ...{" "}
+                        <Spinner animation="grow" variant="success" />
+                        <Spinner animation="border" variant="success" />
+                      </h1>
+                    </div>
+                  ) : (
+                    <Map
+                      parkLatLong={parkLatLong}
+                      parkBoundary={
+                        parkBoundary.length === 0 ? null : parkBoundary
+                      }
+                      parkName={name}
+                    />
                   )}
-                </Carousel>
-              </Col>
-              <Col>
-                {mapLoading ? (
-                  <div>
-                    <h1>
-                      <Spinner animation="border" variant="success" />
-                      <Spinner animation="grow" variant="success" />
-                      Loading ... <Spinner animation="grow" variant="success" />
-                      <Spinner animation="border" variant="success" />
-                    </h1>
-                  </div>
-                ) : (
-                  <Map
-                    parkLatLong={parkLatLong}
-                    parkBoundary={parkBoundary}
-                    parkName={name}
-                  />
-                )}
-              </Col>
-            </Row>
-          </Container>
-          <Card.Body>
-            <Card.Title>{name}</Card.Title>
-            <Card.Text>{description}</Card.Text>
-          </Card.Body>
-          <ListGroup className="list-group-flush">
+                </Col>
+              </Row>
+            </Container>
             <Card.Body>
-              <Card.Title>Park Weather Information</Card.Title>
-              <Card.Text>{weatherInfo}</Card.Text>
+              <Card.Title>{name}</Card.Title>
+              <Card.Text>{description}</Card.Text>
             </Card.Body>
-            <Card.Body>
-              <Card.Title>Visiting the Park</Card.Title>
-              <Card.Text>{directionsInfo}</Card.Text>
-              <Card.Link href={`https://www.nps.gov/${code}/index.htm`}>
-                {name} Website
-              </Card.Link>
-              <Card.Link
-                href={`https://www.nps.gov/${code}/planyourvisit/directions.htm`}
-              >
-                Directions to {name}
-              </Card.Link>
-            </Card.Body>
-          </ListGroup>
-        </Card>
-      </div>
+            <ListGroup className="list-group-flush">
+              <Card.Body>
+                <Card.Title>Park Weather Information</Card.Title>
+                <Card.Text>{weatherInfo}</Card.Text>
+              </Card.Body>
+              <Card.Body>
+                <Card.Title>Visiting the Park</Card.Title>
+                <Card.Text>{directionsInfo}</Card.Text>
+                <Card.Link href={`https://www.nps.gov/${code}/index.htm`}>
+                  {name} Website
+                </Card.Link>
+                <Card.Link
+                  href={`https://www.nps.gov/${code}/planyourvisit/directions.htm`}
+                >
+                  Directions to {name}
+                </Card.Link>
+              </Card.Body>
+            </ListGroup>
+          </Card>
+        </div>
+      </main>
     </>
   );
 };

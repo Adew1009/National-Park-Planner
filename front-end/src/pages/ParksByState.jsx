@@ -54,9 +54,12 @@ const ParksByStatePage = () => {
   return (
     <>
       <div>
-        <h1> National Parks and Monuments in {statename}</h1>
+        <h1 className="text-white">
+          {" "}
+          National Parks and Monuments in {statename}
+        </h1>
       </div>
-      <StateMenu />
+      {/* <StateMenu /> */}
       <div>
         <ListGroup>
           {parks.map((park, index) => (
@@ -68,6 +71,25 @@ const ParksByStatePage = () => {
           ))}
         </ListGroup>
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
     </>
   );
 };

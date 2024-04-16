@@ -2,18 +2,18 @@ import Accordion from "react-bootstrap/Accordion";
 import { useRef, useEffect, useState } from "react";
 import { api } from "../utilities";
 
-function UpdateJournal({ id, updateVisits }) {
-  const [journal, setJournal] = useState("");
+function UpdateJournal({ id, updateVisits, journal }) {
+  const [journalEntry, setJournalEntry] = useState("");
 
   const handleInputChange = (event) => {
     const { value } = event.target;
-    setJournal(value);
+    setJournalEntry(value);
   };
 
   const UpdateJournalEntry = async () => {
     try {
       let response = await api.put(`visited/visit/${id}/`, {
-        journal: journal,
+        journal: journalEntry,
       });
       updateVisits();
     } catch (error) {
