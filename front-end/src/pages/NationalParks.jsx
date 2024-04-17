@@ -71,38 +71,42 @@ const NationalParksPage = () => {
           height: "100%",
         }}
       >
-        <div>
-          <div className="display-4 text-border "> Find Your National Park</div>
+        <div className="d-flex align-items-center justify-content-center">
+          <div className="display-4 text-border "> Find A National Park</div>
         </div>
         <br></br>
-        <h3 className="text-white">
-          Click on the Map to Find Parks Located in that State
-        </h3>
+        <div className=" d-flex align-items-center justify-content-center">
+          <h3 className="text-white bg-success bg-opacity-50 w-75 d-flex align-items-center justify-content-center ">
+            Click on the Map to Find Parks Located in that State
+          </h3>
+        </div>
         <div className="rounded">
           <StateMap />
         </div>{" "}
         <Container className="d-block rounded mx-auto img-fluid w-40">
           <Row>
-            <Col className="rounded-md mx-auto border bg-light">
-              <h2>National Parks and Monuments by State</h2>
+            <Col className="rounded-md mx-auto border  bg-success bg-opacity-50">
+              <h2 className="bg-success bg-opacity-50">
+                National Parks and Monuments by State
+              </h2>
               <StateMenu />
               <br></br>
             </Col>
-            <Col className="rounded-md mx-auto border bg-light">
-              <div>
+            <Col className="rounded-md mx-auto border bg-success bg-opacity-50">
+              <div className="bg-success bg-opacity-50">
                 <h2>All National Parks and Monuments</h2>
                 {/* <ScrollAreaParks parksArray={parksArray} />
         <br></br> */}
 
                 <Accordion
-                  className="mx-auto img-fluid w-90 rounded-md border bg-light"
+                  className="mx-auto img-fluid w-90 rounded-md border bg-success bg-opacity-75"
                   defaultActiveKey="1"
                   flush
                 >
                   <Accordion.Item eventKey="0">
                     <Accordion.Header
                       variant="success"
-                      className="text-center img-fluid w-100 rounded-md border bg-light"
+                      className="text-center img-fluid w-100 rounded-md border bg-success bg-opacity-75"
                     >
                       Click For All National Parks and Monuments by Name
                     </Accordion.Header>
@@ -112,7 +116,7 @@ const NationalParksPage = () => {
                         index // Corrected map function syntax
                       ) => (
                         <Accordion.Body
-                          className=" bg-light"
+                          className=" bg-success bg-opacity-25"
                           variant="success"
                           key={index}
                         >

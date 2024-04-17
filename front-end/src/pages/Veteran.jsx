@@ -2,7 +2,7 @@ import Alert from "react-bootstrap/Alert";
 import { Image } from "react-bootstrap";
 import React from "react";
 
-const AboutPage = () => {
+const VeteranPage = () => {
   return (
     <main
       style={{
@@ -15,14 +15,14 @@ const AboutPage = () => {
       }}
     >
       <br></br>
-      <h1 className="text-info"> ABOUT PAGE</h1>
+      <h1 className="display-3 text-white"> Veteran Programs</h1>
       <br></br>
-      <h3 className="text-primary">
+      <h1 className="text-white bg-success bg-opacity-75">
         Free Entrance to National Parks for Current Military, Veterans, and Gold
         Star Families
-      </h3>
+      </h1>
       <br></br>
-      <h4 className=" bg-info bg-opacity-50">
+      <h4 className="text-white bg-success bg-opacity-75">
         The Gold Star voucher and Military Lifetime Pass cover entrance fees at
         national parks and national wildlife refuges as well as standard amenity
         fees (day use fees) at national forests and grasslands and on lands
@@ -31,14 +31,14 @@ const AboutPage = () => {
         Army Corps of Engineers.
       </h4>
       <br></br>
-      <h4 className="text-success bg-warning bg-opacity-50">
+      <h4 className="text-white bg-success bg-opacity-75">
         Current members of the US Armed Forces and their dependents can enter
         national parks for free with an Interagency Military Annual Pass through
         the America the Beautiful – the National Parks and Federal Recreational
         Lands Pass (Interagency) Program.
       </h4>
       <br></br>
-      <h4 className="text-white bg-success bg-opacity-50">
+      <h4 className="text-white bg-success bg-opacity-75">
         For purposes of this program, a veteran is identified as an individual
         who has served in the US Armed Forces, including the National Guard and
         Reserves. There is no application or form to fill out to receive the
@@ -54,7 +54,7 @@ const AboutPage = () => {
       <br></br>
       <br></br>
 
-      <h4 className="text-warning bg-success bg-opacity-25">
+      <h4 className="text-warning bg-success bg-opacity-75">
         The pass does not cover expanded amenity fees such as camping, tours or
         special recreation permits; reservation fees and fees for organized
         groups or concession-operated facilities or activities.
@@ -62,4 +62,4 @@ const AboutPage = () => {
     </main>
   );
 };
-export default AboutPage;
+export default VeteranPage;

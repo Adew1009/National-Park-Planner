@@ -184,44 +184,60 @@ const AParkPage = () => {
         }}
       >
         <div>
-          <div className="display-1  shadow-lg-sucess  roundedsticky-top text-success-emphasis">
+          <div className="display-1  shadow-lg-sucess text-info bg-success bg-opacity-25  roundedsticky-top text-success-emphasis">
             {" "}
             {name}
           </div>
           <h3 className="p-1 fs-2">{designation} </h3>
-          {visits.some((visit) => visit.parkCode.parkCode === code) ? (
-            <RemoveVisitAlert
-              id={getID(code, visits)}
-              visits={visits}
-              setVisits={setVisits}
-              updateVisits={updateVisits}
-            />
-          ) : (
-            <AddVisitAlert
-              parkCode={code}
-              visits={visits}
-              setVisits={setVisits}
-              updateVisits={updateVisits}
-            />
-          )}
-          {wishlist.some((wish) => wish.parkCode.parkCode === code) ? (
-            <RemoveWishlistAlert
-              id={getID(code, wishlist)}
-              wishlist={wishlist}
-              setWishlist={setWishlist}
-              updateWishlist={updateWishlist}
-            />
-          ) : (
-            <WishlistAlert
-              parkCode={code}
-              wishlist={wishlist}
-              setWishlist={setWishlist}
-              updateWishlist={updateWishlist}
-            />
-          )}
+          <span
+            style={{ width: "24%" }}
+            className="bg-white opacity-100 rounded d-block mx-auto border-green"
+          >
+            {visits.some((visit) => visit.parkCode.parkCode === code) ? (
+              <RemoveVisitAlert
+                id={getID(code, visits)}
+                visits={visits}
+                setVisits={setVisits}
+                updateVisits={updateVisits}
+              />
+            ) : (
+              <AddVisitAlert
+                parkCode={code}
+                visits={visits}
+                setVisits={setVisits}
+                updateVisits={updateVisits}
+              />
+            )}
+            <span>
+              {" "}
+              <> </>
+            </span>
+
+            <> </>
+            {wishlist.some((wish) => wish.parkCode.parkCode === code) ? (
+              <RemoveWishlistAlert
+                id={getID(code, wishlist)}
+                wishlist={wishlist}
+                setWishlist={setWishlist}
+                updateWishlist={updateWishlist}
+              />
+            ) : (
+              <WishlistAlert
+                parkCode={code}
+                wishlist={wishlist}
+                setWishlist={setWishlist}
+                updateWishlist={updateWishlist}
+              />
+            )}
+          </span>
         </div>
         <div>
-          <Card style={{ width: "100%" }}>
+          <Card
+            className=" bg-success bg-opacity-25"
+            style={{
+              width: "100%",
+            }}
+          >
             <ListGroup>
               {parkAlerts.length === 0 ? (
                 <ListGroup.Item
@@ -318,6 +334,38 @@ const AParkPage = () => {
             </ListGroup>
           </Card>
         </div>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
       </main>
     </>
   );

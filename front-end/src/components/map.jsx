@@ -244,7 +244,7 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
   return (
     <div>
       <div>
-        <h3 className="primary-title text-center" id="info">
+        <h3 className="primary-title text-center rounded" id="info">
           Map and Directions to {parkName}
         </h3>
       </div>
@@ -278,9 +278,9 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
                 autoComplete="off"
               />
               <input
-                className="bg-light"
+                className="bg-success opacity-75 rounded"
                 type="submit"
-                value="Get Directions"
+                value="Click For Directions"
               />
             </form>
           </div>

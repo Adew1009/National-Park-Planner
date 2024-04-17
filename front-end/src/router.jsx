@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import HomePage from "./pages/HomePage";
-import AboutPage from "./pages/AboutPage";
+import VeteranPage from "./pages/Veteran.jsx";
 import AParkPage from "./pages/AParkPage.jsx";
 import NationalParksPage from "./pages/NationalParks.jsx";
 import LogIn from "./pages/LogIn";
@@ -26,8 +26,8 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "about/",
-        element: <AboutPage />,
+        path: "veteran/",
+        element: <VeteranPage />,
       },
       {
         path: "park/:name/:code",

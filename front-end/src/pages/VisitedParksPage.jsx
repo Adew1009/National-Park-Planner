@@ -37,7 +37,7 @@ const VisitedParksPage = () => {
         ) : (
           <VisitMap latlong={latlong} />
         )}
-        <Row className="d-flex justify-content-center align-content-between flex-wrap">
+        <Row className="p-5 justify-content-center align-content-center ">
           {visits.map((park) => (
             <Col key={park.id}>
               <VisitedParkCard

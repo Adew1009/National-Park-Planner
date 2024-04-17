@@ -8,14 +8,15 @@ import LoginDialog from "./LoginDialog";
 import SignupDialog from "./SignupDialog";
 import DisplayNameDialog from "./DispalyNameDialog";
 import ChangePasswordDialog from "./ChangePasswordDialog";
-//! ADD DISPLAY NAME TO THE NAVBAR
+import { AccountDropdown } from "./AccountDropdown";
+import { YourParksDropdown } from "./YourParksDropdown";
 
 const PageNavbar = ({ setUser, user }) => {
   return (
     <>
       <Navbar
         variant="success"
-        className="sticky-top"
+        className="sticky-top "
         bg="dark"
         data-bs-theme="dark"
       >
@@ -34,7 +35,7 @@ const PageNavbar = ({ setUser, user }) => {
 
                   <h2>" "</h2>
                   <h3 className="text-warning">
-                    Please Login or Sign Up for full site features
+                    Please Login or Sign Up for Full Site Features
                   </h3>
                 </>
               ) : (
@@ -43,11 +44,18 @@ const PageNavbar = ({ setUser, user }) => {
                     Home
                   </Button>
                   <h2>" "</h2> */}
-                  <Button variant="outline-success" as={Link} to="/allparks">
+                  <Button
+                    className="btn-sm"
+                    variant="outline-success"
+                    as={Link}
+                    to="/allparks"
+                  >
                     Find A National Park
                   </Button>
                   <h2>" "</h2>
-                  <Button
+                  <YourParksDropdown />
+                  {/* <Button
+                    className="btn-sm"
                     variant="outline-success"
                     as={Link}
                     to="/visitedparks"
@@ -55,12 +63,22 @@ const PageNavbar = ({ setUser, user }) => {
                     Your Visited Parks
                   </Button>
                   <h2>" "</h2>
-                  <Button variant="outline-success" as={Link} to="/wishparks">
+                  <Button
+                    className="btn-sm"
+                    variant="outline-success"
+                    as={Link}
+                    to="/wishparks"
+                  >
                     Your Park Wish List
-                  </Button>
+                  </Button> */}
                   <h2>" "</h2>
-                  <Button variant="outline-success" as={Link} to="/about">
-                    About
+                  <Button
+                    className="btn-sm"
+                    variant="outline-success"
+                    as={Link}
+                    to="/veteran"
+                  >
+                    Free Veteran Park Entry
                   </Button>
                   <h2>" "</h2>
 
@@ -70,11 +88,12 @@ const PageNavbar = ({ setUser, user }) => {
                       Logged in as: {user[1] === "email" ? user[0] : user[1]}
                       <br></br>
                     </h5>
-                    <ChangePasswordDialog setUser={setUser} />
-                    <DisplayNameDialog user={user} setUser={setUser} />
                   </div>
                   <h5>""</h5>
+                  <AccountDropdown user={user} setUser={setUser} />
+                  <h5>""</h5>
                   <Button
+                    className="btn-sm"
                     variant="outline-danger"
                     onClick={async () => setUser(await userLogOut())}
                   >
