@@ -5,8 +5,18 @@ import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react"; // Import useEffect
 import { api } from "../utilities";
 import { AddVisitAlert } from "./AddVisitAlert";
+import { RemoveVisitAlert } from "./RemoveVisitAlert";
 
-function WishListCard({ images = [], name, id, updateWishlist, code }) {
+function WishListCard({
+  images = [],
+  name,
+  id,
+  updateWishlist,
+  code,
+  visits,
+  setVisits,
+  updateVisits,
+}) {
   // Initialize images as an empty array
   const removeWishList = async (id) => {
     try {
@@ -23,51 +33,17 @@ function WishListCard({ images = [], name, id, updateWishlist, code }) {
     await removeWishList(id);
   };
 
-  // //! get the visits from the database and set the visits useState
-  // const getVisits = async () => {
-  //   try {
-  //     let response = await api.get(`visited/all-visits/`);
-  //     let results = response.data;
-  //     console.log(results);
-  //     setVisits(results);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.error("An error occurred:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getVisits();
-  // }, []);
-
-  // // ! add a visit to the database
-  // const [visits, setVisits] = useState([]);
-  // const [loading, setLoading] = useState(true);
-
-  // const addParkVisit = async (parkCode) => {
-  //   try {
-  //     console.log("Add Park Function", parkCode);
-  //     // Check if the parkCode already exists in the visits array
-  //     if (visits.some((visit) => visit.parkCode === parkCode)) {
-  //       console.log("This park has already been visited.");
-  //       return; // Exit early if the parkCode already exists
-  //     }
-
-  //     let response = await api.post("visited/all-visits/", {
-  //       parkCode: parkCode,
-  //       journal: "Record a memory here",
-  //     });
-  //     // If the visit was added successfully, update the visits state
-  //     setVisits([...visits, response.data]);
-  //     console.log(visits);
-  //   } catch (error) {
-  //     console.error("An error occurred:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   addParkVisit();
-  // }, []);
+  const getID = (parkCode, list) => {
+    if (!list) {
+      return null;
+    }
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].parkCode.parkCode === parkCode) {
+        return list[i].id;
+      }
+    }
+    return null;
+  };
 
   return (
     <Card style={{ width: "30rem", height: "39rem" }} data-bs-theme="dark">
@@ -102,7 +78,21 @@ function WishListCard({ images = [], name, id, updateWishlist, code }) {
           <Button variant="danger" onClick={async () => removeWishList(id)}>
             Remove From Wish List
           </Button>
-          <AddVisitAlert parkCode={code} />
+          {visits.some((visit) => visit.parkCode.parkCode === code) ? (
+            <RemoveVisitAlert
+              id={getID(code, visits)}
+              visits={visits}
+              setVisits={setVisits}
+              updateVisits={updateVisits}
+            />
+          ) : (
+            <AddVisitAlert
+              parkCode={code}
+              visits={visits}
+              setVisits={setVisits}
+              updateVisits={updateVisits}
+            />
+          )}
           {/* <Button onClick={async () => addParkVisit(code)}>
             Add to Visited Parks
           </Button> */}

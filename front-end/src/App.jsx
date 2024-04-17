@@ -13,6 +13,7 @@ import {
 
 function App() {
   const [user, setUser] = useState(useLoaderData());
+  // console.log("USELOADER", useLoaderData());
   const location = useLocation();
   const navigate = useNavigate();
   // **** USED FOR VISIT OUTLET CONTEXT*****
@@ -37,9 +38,9 @@ function App() {
         ])
       );
       setLatlong(latlonglist);
-      console.log("latlonglist", latlonglist);
+      // console.log("latlonglist", latlonglist);
       setMapLoading(false);
-      console.log(mapLoading);
+      // console.log(mapLoading);
     } catch (error) {
       console.error("An error occurred:", error);
     }
@@ -63,7 +64,7 @@ function App() {
     try {
       let response = await api.get(`wishlist/allwishlist/`);
       let results = response.data;
-      console.log("results", results);
+      // console.log("results", results);
       setWishlist(results);
       // setLoading(false);
       const latlonglist = [];
@@ -74,7 +75,7 @@ function App() {
         ])
       );
       setWishLatlong(latlonglist);
-      console.log("latlonglist", latlonglist);
+      // console.log("latlonglist", latlonglist);
       setWishMapLoading(false);
     } catch (error) {
       console.error("An error occurred:", error);

@@ -52,8 +52,6 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
         .setLngLat(originCord)
         .addTo(map);
 
-      // TODO ADD LINK TO POP UP BOX
-      // * ********Adds the red marker to the park location on the Map******
       const popup = new mapboxgl.Popup().setText(parkName);
       const ParkMarker = new mapboxgl.Marker({
         color: "Red",

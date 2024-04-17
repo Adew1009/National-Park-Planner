@@ -6,6 +6,8 @@ import Button from "react-bootstrap/esm/Button";
 import { userLogOut } from "../utilities";
 import LoginDialog from "./LoginDialog";
 import SignupDialog from "./SignupDialog";
+import DisplayNameDialog from "./DispalyNameDialog";
+import ChangePasswordDialog from "./ChangePasswordDialog";
 //! ADD DISPLAY NAME TO THE NAVBAR
 
 const PageNavbar = ({ setUser, user }) => {
@@ -28,7 +30,7 @@ const PageNavbar = ({ setUser, user }) => {
                 <>
                   <SignupDialog setUser={setUser} />
                   <h2>" "</h2>
-                  <LoginDialog setUser={setUser} />
+                  <LoginDialog setUser={setUser} user={user} />
 
                   <h2>" "</h2>
                   <h3 className="text-warning">
@@ -41,9 +43,8 @@ const PageNavbar = ({ setUser, user }) => {
                     Home
                   </Button>
                   <h2>" "</h2> */}
-
                   <Button variant="outline-success" as={Link} to="/allparks">
-                    National Parks
+                    Find A National Park
                   </Button>
                   <h2>" "</h2>
                   <Button
@@ -51,11 +52,11 @@ const PageNavbar = ({ setUser, user }) => {
                     as={Link}
                     to="/visitedparks"
                   >
-                    Visited Parks
+                    Your Visited Parks
                   </Button>
                   <h2>" "</h2>
                   <Button variant="outline-success" as={Link} to="/wishparks">
-                    Park Wish List
+                    Your Park Wish List
                   </Button>
                   <h2>" "</h2>
                   <Button variant="outline-success" as={Link} to="/about">
@@ -64,8 +65,15 @@ const PageNavbar = ({ setUser, user }) => {
                   <h2>" "</h2>
 
                   {/*FIX TO DISPLAY THE USER INFO  */}
-                  <h6 className="text-primary">Logged in as: {user}</h6>
-                  <h2>" "</h2>
+                  <div>
+                    <h5 className="text-primary">
+                      Logged in as: {user[1] === "email" ? user[0] : user[1]}
+                      <br></br>
+                    </h5>
+                    <ChangePasswordDialog setUser={setUser} />
+                    <DisplayNameDialog user={user} setUser={setUser} />
+                  </div>
+                  <h5>""</h5>
                   <Button
                     variant="outline-danger"
                     onClick={async () => setUser(await userLogOut())}

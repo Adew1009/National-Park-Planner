@@ -16,10 +16,14 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { userRegistration, userLogIn } from "../utilities";
+import { Link } from "react-router-dom";
+import ChangePasswordDialog from "./ChangePasswordDialog";
+import { userConfirmation } from "../utilities";
 
-const LoginDialog = ({ setUser }) => {
+const LoginDialog = ({ setUser, user }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   // const { setUser } = useOutletContext();
 
   return (
@@ -68,7 +72,7 @@ const LoginDialog = ({ setUser }) => {
                 Submit
               </Button>
             </Form>
-            <Form></Form>
+            <div className="text-center">{/* ADD FINCTIONALITY */}</div>
           </div>
         </div>
       </DialogContent>

@@ -16,6 +16,9 @@ const ParkWishListPage = () => {
     wishmapLoading,
     setWishMapLoading,
     updateWishlist,
+    visits,
+    setVisits,
+    updateVisits,
   } = useOutletContext();
   //   const [wishlist, setWishlist] = useState([]);
   //   const [wishlatlong, setWishLatlong] = useState([]);
@@ -90,6 +93,9 @@ const ParkWishListPage = () => {
                 id={park.id}
                 updateWishlist={updateWishlist} // Pass updateVisits function to VisitedParkCard
                 code={park.parkCode.parkCode}
+                setVisits={setVisits}
+                visits={visits}
+                updateVisits={updateVisits}
               />
               <br></br>
             </Col>

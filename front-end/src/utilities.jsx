@@ -11,7 +11,8 @@ export const userConfirmation = async () => {
     try {
       let response = await api.get("users/");
       if (response.status === 200) {
-        return response.data.user;
+        // return response.data.user;
+        return [response.data.user, response.data.display_name];
       }
     } catch (error) {
       console.error("Error fetching user confirmation:", error);
@@ -35,7 +36,7 @@ export const userRegistration = async (email, password) => {
       //!Doesnt Work need to change
       await userLogIn(email, password);
 
-      return user.email;
+      return user.display_name;
     } else {
       console.error("Registration failed:", response.data);
       return null;
@@ -56,7 +57,9 @@ export const userLogIn = async (email, password) => {
       let { user, token } = response.data;
       localStorage.setItem("token", token);
       api.defaults.headers.common["Authorization"] = `Token ${token}`;
-      return user;
+      userConfirmation();
+      console.log("LoginUser", user);
+      return [response.data.user, response.data.display_name];
     } else {
       console.error("Login failed:", response.data);
       return null;
