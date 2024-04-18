@@ -14,14 +14,7 @@ const ParksByStatePage = () => {
   const { statename, state } = useParams();
   const [parks, setParks] = useState([]);
   const [loading, setLoading] = useState(true);
-  //   const parksArray = [];
 
-  //   for (const [park, code] of Object.entries(dict)) {
-  //     parksArray.push({
-  //       name: park,
-  //       code: code,
-  //     });
-  //   }
   const getParks = async () => {
     try {
       let response = await api.get(`nps/parkbystate/${state}`);

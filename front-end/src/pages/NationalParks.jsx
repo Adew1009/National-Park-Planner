@@ -95,8 +95,6 @@ const NationalParksPage = () => {
             <Col className="rounded-md mx-auto border bg-success bg-opacity-50">
               <div className="bg-success bg-opacity-50">
                 <h2>All National Parks and Monuments</h2>
-                {/* <ScrollAreaParks parksArray={parksArray} />
-        <br></br> */}
 
                 <Accordion
                   className="mx-auto img-fluid w-90 rounded-md border bg-success bg-opacity-75"
@@ -110,106 +108,52 @@ const NationalParksPage = () => {
                     >
                       Click For All National Parks and Monuments by Name
                     </Accordion.Header>
-                    {parksArray.map(
-                      (
-                        { name, code },
-                        index // Corrected map function syntax
-                      ) => (
-                        <Accordion.Body
-                          className=" bg-success bg-opacity-25"
-                          variant="success"
-                          key={index}
-                        >
-                          <Link to={`/park/${name}/${code}`}>{name}</Link>
-                          <br></br>
-                          {visits.some(
-                            (visit) => visit.parkCode.parkCode === code
-                          ) ? (
-                            <RemoveVisitAlert
-                              id={getID(code, visits)}
-                              visits={visits}
-                              setVisits={setVisits}
-                              updateVisits={updateVisits}
-                            />
-                          ) : (
-                            <AddVisitAlert
-                              parkCode={code}
-                              visits={visits}
-                              setVisits={setVisits}
-                              updateVisits={updateVisits}
-                            />
-                          )}
-                          {wishlist.some(
-                            (wish) => wish.parkCode.parkCode === code
-                          ) ? (
-                            <RemoveWishlistAlert
-                              id={getID(code, wishlist)}
-                              wishlist={wishlist}
-                              setWishlist={setWishlist}
-                              updateWishlist={updateWishlist}
-                            />
-                          ) : (
-                            <WishlistAlert
-                              parkCode={code}
-                              wishlist={wishlist}
-                              setWishlist={setWishlist}
-                              updateWishlist={updateWishlist}
-                            />
-                          )}
-                        </Accordion.Body>
-                      )
-                    )}
+                    {parksArray.map(({ name, code }, index) => (
+                      <Accordion.Body
+                        className=" bg-success bg-opacity-25"
+                        variant="success"
+                        key={index}
+                      >
+                        <Link to={`/park/${name}/${code}`}>{name}</Link>
+                        <br></br>
+                        {visits.some(
+                          (visit) => visit.parkCode.parkCode === code
+                        ) ? (
+                          <RemoveVisitAlert
+                            id={getID(code, visits)}
+                            visits={visits}
+                            setVisits={setVisits}
+                            updateVisits={updateVisits}
+                          />
+                        ) : (
+                          <AddVisitAlert
+                            parkCode={code}
+                            visits={visits}
+                            setVisits={setVisits}
+                            updateVisits={updateVisits}
+                          />
+                        )}
+                        {wishlist.some(
+                          (wish) => wish.parkCode.parkCode === code
+                        ) ? (
+                          <RemoveWishlistAlert
+                            id={getID(code, wishlist)}
+                            wishlist={wishlist}
+                            setWishlist={setWishlist}
+                            updateWishlist={updateWishlist}
+                          />
+                        ) : (
+                          <WishlistAlert
+                            parkCode={code}
+                            wishlist={wishlist}
+                            setWishlist={setWishlist}
+                            updateWishlist={updateWishlist}
+                          />
+                        )}
+                      </Accordion.Body>
+                    ))}
                   </Accordion.Item>
                 </Accordion>
-
-                {/* <ListGroup className="w-50 rounded-md border bg-light">
-          <ListGroup.Item className="text-lg bg-info">
-            All National Parks and Monuments by Name
-          </ListGroup.Item>
-          {parksArray.map(
-            (
-              { name, code },
-              index // Corrected map function syntax
-            ) => (
-              <ListGroup.Item variant="success" key={index}>
-                <Link className="text-lg" to={`/park/${name}/${code}`}>
-                  {name}
-                </Link>
-                <br></br>
-                {visits.some((visit) => visit.parkCode.parkCode === code) ? (
-                  <RemoveVisitAlert
-                    id={getID(code, visits)}
-                    visits={visits}
-                    setVisits={setVisits}
-                    updateVisits={updateVisits}
-                  />
-                ) : (
-                  <AddVisitAlert
-                    parkCode={code}
-                    visits={visits}
-                    setVisits={setVisits}
-                    updateVisits={updateVisits}
-                  />
-                )}
-                {wishlist.some((wish) => wish.parkCode.parkCode === code) ? (
-                  <RemoveWishlistAlert
-                    id={getID(code, wishlist)}
-                    wishlist={wishlist}
-                    setWishlist={setWishlist}
-                    updateWishlist={updateWishlist}
-                  />
-                ) : (
-                  <WishlistAlert
-                    parkCode={code}
-                    wishlist={wishlist}
-                    setWishlist={setWishlist}
-                    updateWishlist={updateWishlist}
-                  />
-                )}
-              </ListGroup.Item>
-            )
-          )}
-        </ListGroup> */}
               </div>
             </Col>
           </Row>

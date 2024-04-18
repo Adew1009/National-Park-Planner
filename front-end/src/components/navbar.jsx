@@ -40,10 +40,6 @@ const PageNavbar = ({ setUser, user }) => {
                 </>
               ) : (
                 <>
-                  {/* <Button size="sm" variant="outline-success" as={Link} to="/">
-                    Home
-                  </Button>
-                  <h2>" "</h2> */}
                   <Button
                     className="btn-sm"
                     variant="outline-success"
@@ -54,23 +50,7 @@ const PageNavbar = ({ setUser, user }) => {
                   </Button>
                   <h2>" "</h2>
                   <YourParksDropdown />
-                  {/* <Button
-                    className="btn-sm"
-                    variant="outline-success"
-                    as={Link}
-                    to="/visitedparks"
-                  >
-                    Your Visited Parks
-                  </Button>
-                  <h2>" "</h2>
-                  <Button
-                    className="btn-sm"
-                    variant="outline-success"
-                    as={Link}
-                    to="/wishparks"
-                  >
-                    Your Park Wish List
-                  </Button> */}
+
                   <h2>" "</h2>
                   <Button
                     className="btn-sm"

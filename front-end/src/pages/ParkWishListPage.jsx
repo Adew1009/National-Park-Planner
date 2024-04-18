@@ -21,42 +21,6 @@ const ParkWishListPage = () => {
     setVisits,
     updateVisits,
   } = useOutletContext();
-  //   const [wishlist, setWishlist] = useState([]);
-  //   const [wishlatlong, setWishLatlong] = useState([]);
-  //   const [wishmapLoading, setWishMapLoading] = useState(true);
-  //   // const [loading, setLoading] = useState(true);
-
-  //   //! get the visits from the database and set the visits useState
-  //   const getWishlist = async () => {
-  //     try {
-  //       let response = await api.get(`wishlist/allwishlist/`);
-  //       let results = response.data;
-  //       console.log("results", results);
-  //       setWishlist(results);
-  //       // setLoading(false);
-  //       const latlonglist = [];
-  //       results.map((park) =>
-  //         latlonglist.push([
-  //           [park.parkCode.longitude, park.parkCode.latitude],
-  //           park.parkCode.fullName,
-  //         ])
-  //       );
-  //       setWishLatlong(latlonglist);
-  //       console.log("latlonglist", latlonglist);
-  //       setWishMapLoading(false);
-  //     } catch (error) {
-  //       console.error("An error occurred:", error);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     getWishlist();
-  //   }, []);
-
-  //   const updateWishlist = () => {
-  //     getWishlist();
-  //     setWishMapLoading(true);
-  //   };
 
   return (
     <>
@@ -67,8 +31,6 @@ const ParkWishListPage = () => {
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
           width: "100%",
-
-          // height: "100%",
         }}
       >
         <h1>Park Wishlist</h1>
@@ -83,20 +45,19 @@ const ParkWishListPage = () => {
             </h1>
           </div>
         ) : (
-          <VisitMap latlong={wishlatlong} />
+          <VisitMap latlong={wishlatlong} color={"lightgreen"} />
         )}
         <Row>
           {wishlist.map((park) => (
             <Col key={park.id}>
               <WishListCard
-                images={park.parkCode.images} // Use state variable directly
-                name={park.parkCode.fullName} // Use state variable directly
+                images={park.parkCode.images}
+                name={park.parkCode.fullName}
                 id={park.id}
-                updateWishlist={updateWishlist} // Pass updateVisits function to VisitedParkCard
+                updateWishlist={updateWishlist}
                 code={park.parkCode.parkCode}
                 setVisits={setVisits}
                 visits={visits}
-                updateVisits={updateVisits}
               />
               <br></br>
             </Col>

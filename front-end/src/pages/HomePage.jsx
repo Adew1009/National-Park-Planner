@@ -32,7 +32,6 @@ const HomePage = () => {
           <Container>
             <Row>
               <Col className="m-auto">
-                {/* <Col xs={12} sm={4} md={4}> */}
                 <Image
                   className="d-block mx-auto img-fluid w-75"
                   src="https://angelastaehling.com/cdn/shop/products/US-National-Parks-Map-Blue_1500x.png?v=1660134768"

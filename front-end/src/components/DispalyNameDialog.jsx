@@ -30,8 +30,6 @@ const DisplayNameDialog = ({ user, setUser }) => {
           display_name: displayName,
         });
         console.log("Made it to displayName", displayName);
-
-        // return response.data.user;
         console.log(response.data);
         return [response.data.display_name];
       } catch (error) {
@@ -56,12 +54,10 @@ const DisplayNameDialog = ({ user, setUser }) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          {/* <DialogTitle className="display-4">Create Display Name</DialogTitle> */}
           <DialogTitle>Enter Your Desired Display Name.</DialogTitle>
         </DialogHeader>
-        {/* <div className="grid gap-4 py-4"> */}
+
         <div>
-          {/* <div className="grid grid-cols-4 items-center gap-4"> */}
           <div>
             <Form
               onSubmit={async (e) => {
@@ -70,7 +66,6 @@ const DisplayNameDialog = ({ user, setUser }) => {
               }}
             >
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                {/* <Form.Label>Display Name</Form.Label> */}
                 <Form.Control
                   onChange={(e) => setDisplayName(e.target.value)}
                   value={displayName}

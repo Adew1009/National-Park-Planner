@@ -14,13 +14,9 @@ import { api } from "../utilities";
 import axios from "axios";
 
 export function AddVisitAlert({ parkCode, visits, setVisits, updateVisits }) {
-  // const [visits, setVisits] = useState([]);
-
   // ! add a visit to the database
   const addParkVisit = async (parkCode, visits, setVisits) => {
     try {
-      // console.log("Add Park Function", parkCode);
-      // Check if the parkCode already exists in the visits array
       if (visits.some((visit) => visit.parkCode === parkCode)) {
         console.log("This park has already been visited.");
         return; // Exit early if the parkCode already exists
@@ -30,7 +26,7 @@ export function AddVisitAlert({ parkCode, visits, setVisits, updateVisits }) {
         parkCode: parkCode,
         journal: "Record a memory here",
       });
-      // If the visit was added successfully, update the visits state
+
       setVisits([...visits, response.data]);
       console.log(visits);
       updateVisits();

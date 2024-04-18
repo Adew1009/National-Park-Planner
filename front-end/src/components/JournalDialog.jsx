@@ -58,8 +58,8 @@ function JournalDialog({ id, updateVisits, currentJournal }) {
             <div>
               <Form
                 onSubmit={async (e) => [
-                  e.preventDefault(), // Prevent default form submission behavior
-                  handleJournalEntry(), // Call calcRouteDirection function
+                  e.preventDefault(),
+                  handleJournalEntry(),
                 ]}
               >
                 <Form.Group className="mb-3">

@@ -59,12 +59,10 @@ const ChangePasswordDialog = ({ setUser }) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          {/* <DialogTitle className="display-4"> Change Password </DialogTitle> */}
           <DialogTitle>Enter Current and New Password.</DialogTitle>
         </DialogHeader>
-        {/* <div className="grid gap-4 py-4"> */}
+
         <div>
-          {/* <div className="grid grid-cols-4 items-center gap-4"> */}
           <div>
             <Form
               onSubmit={async (e) => {
@@ -104,7 +102,6 @@ const ChangePasswordDialog = ({ setUser }) => {
                 Submit
               </Button>
             </Form>
-            <div className="text-center">{/* ADD FINCTIONALITY */}</div>
           </div>
         </div>
       </DialogContent>

@@ -12,14 +12,7 @@ import {
 import ChangePasswordDialog from "./ChangePasswordDialog";
 import DisplayNameDialog from "./DispalyNameDialog";
 
-// type Checked = DropdownMenuCheckboxItemProps["checked"];
-
 export function AccountDropdown(setUser, user) {
-  // const [showStatusBar, setShowStatusBar] = React.useState < Checked > true;
-  // const [showActivityBar, setShowActivityBar] =
-  //   React.useState < Checked > false;
-  // const [showPanel, setShowPanel] = React.useState < Checked > false;
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

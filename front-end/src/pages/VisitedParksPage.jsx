@@ -46,6 +46,7 @@ const VisitedParksPage = () => {
                 journal={park.journal}
                 id={park.id}
                 updateVisits={updateVisits}
+                color={"lightblue"}
               />
               <br></br>
             </Col>

@@ -176,21 +176,21 @@ const AParkPage = () => {
       <main
         style={{
           backgroundImage: `url("https://images.pexels.com/photos/957079/hintersee-ramsau-berchtesgaden-bavaria-957079.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")`,
-          backgroundRepeat: "no-repeat",
+          backgroundRepeat: "repeat",
           backgroundSize: "cover",
           width: "100%",
-          height: "100vh",
-          backgroundAttachment: "fixed",
+          height: "100%",
+          // backgroundAttachment: "fixed",
         }}
       >
         <div>
-          <div className="display-1  shadow-lg-sucess text-info bg-success bg-opacity-25  roundedsticky-top text-success-emphasis">
+          <div className="display-1  shadow-lg-sucess text-info bg-success bg-opacity-75  roundedsticky-top text-success-emphasis">
             {" "}
             {name}
           </div>
           <h3 className="p-1 fs-2">{designation} </h3>
           <span
-            style={{ width: "24%" }}
+            style={{ width: "25%" }}
             className="bg-white opacity-100 rounded d-block mx-auto border-green"
           >
             {visits.some((visit) => visit.parkCode.parkCode === code) ? (
@@ -231,7 +231,7 @@ const AParkPage = () => {
             )}
           </span>
         </div>
-        <div>
+        <div className="bg-light">
           <Card
             className=" bg-success bg-opacity-25"
             style={{
@@ -241,10 +241,10 @@ const AParkPage = () => {
             <ListGroup>
               {parkAlerts.length === 0 ? (
                 <ListGroup.Item
-                  className="p-3  text-success-emphasis bg-success-subtle border border-success-subtle rounded-3"
+                  className="p-3 text-success bg-light-subtle border border-success-subtle d-block mx-auto  rounded-3 w-30"
                   interval={4000}
                 >
-                  {"There are no current alerts for this park."}
+                  <h2>{"There Are No Current Alerts For This Park."}</h2>
                 </ListGroup.Item>
               ) : (
                 <>
@@ -266,7 +266,10 @@ const AParkPage = () => {
             </ListGroup>
             <Container>
               <Row>
-                <Col>
+                <Col className="d-flex flex-column justify-content-around border rounded">
+                  <h3 className="primary-title text-center rounded">
+                    Map and Directions to {name}
+                  </h3>
                   <Carousel>
                     {parkImages.map(
                       (
@@ -280,14 +283,16 @@ const AParkPage = () => {
                             style={{ width: "100%" }}
                           />
                           <Carousel.Caption>
-                            <h3>{image.title}</h3>
+                            <h3 className=" text-info bg-success bg-opacity-50">
+                              {image.title}
+                            </h3>
                           </Carousel.Caption>
                         </Carousel.Item>
                       )
                     )}
                   </Carousel>
                 </Col>
-                <Col>
+                <Col className="d-flex flex-column justify-content-around border rounded">
                   {mapLoading ? (
                     <div>
                       <h1>
@@ -314,24 +319,25 @@ const AParkPage = () => {
               <Card.Title>{name}</Card.Title>
               <Card.Text>{description}</Card.Text>
             </Card.Body>
-            <ListGroup className="list-group-flush">
+            <ListGroup className="list-group">
               <Card.Body>
                 <Card.Title>Park Weather Information</Card.Title>
                 <Card.Text>{weatherInfo}</Card.Text>
               </Card.Body>
-              <Card.Body>
-                <Card.Title>Visiting the Park</Card.Title>
-                <Card.Text>{directionsInfo}</Card.Text>
-                <Card.Link href={`https://www.nps.gov/${code}/index.htm`}>
-                  {name} Website
-                </Card.Link>
-                <Card.Link
-                  href={`https://www.nps.gov/${code}/planyourvisit/directions.htm`}
-                >
-                  Directions to {name}
-                </Card.Link>
-              </Card.Body>
             </ListGroup>
+            <Card.Body>
+              <Card.Title>Visiting the Park</Card.Title>
+              <Card.Text>{directionsInfo}</Card.Text>
+              <Card.Link href={`https://www.nps.gov/${code}/index.htm`}>
+                {name} Website
+              </Card.Link>
+              <Card.Link
+                href={`https://www.nps.gov/${code}/planyourvisit/directions.htm`}
+              >
+                Directions to {name}
+              </Card.Link>
+            </Card.Body>
+            {/* </ListGroup> */}
           </Card>
         </div>
         <br></br>

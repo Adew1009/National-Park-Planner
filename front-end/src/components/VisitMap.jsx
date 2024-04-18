@@ -4,7 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Map = ({ latlong, code }) => {
+const Map = ({ latlong, code, color }) => {
   const mapContainerRef = useRef(null);
   const [mapStyle, setMapStyle] = useState(
     "mapbox://styles/mapbox/satellite-streets-v12"
@@ -32,7 +32,7 @@ const Map = ({ latlong, code }) => {
           const popup = new mapboxgl.Popup().setText(coord[1]);
 
           const marker = new mapboxgl.Marker({
-            color: "red",
+            color: color,
           })
             .setLngLat(coord[0])
             .setPopup(popup)

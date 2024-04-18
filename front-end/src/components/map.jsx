@@ -3,10 +3,10 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import axios from "axios";
 import MapboxGeocoding from "@mapbox/mapbox-sdk/services/geocoding";
-import { FaArrowTurnDown } from "react-icons/fa6";
+
 const initialItemCount = 4;
 // const directions = routeInfo.length > 0 ? routeInfo[0].legs[0].steps : [];
-const Map = ({ parkLatLong, parkBoundary, parkName }) => {
+const Map = ({ parkLatLong, parkBoundary, parkName, color }) => {
   const mapContainerRef = useRef(null);
   const [mapStyle, setMapStyle] = useState(
     "mapbox://styles/mapbox/satellite-streets-v12"
@@ -54,7 +54,7 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
 
       const popup = new mapboxgl.Popup().setText(parkName);
       const ParkMarker = new mapboxgl.Marker({
-        color: "Red",
+        color: "green",
       })
         .setLngLat([parkLatLong.longitude, parkLatLong.latitude])
         .setPopup(popup)
@@ -234,7 +234,6 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
   };
 
   const handleInputBlur = () => {
-    // Use setTimeout to allow the click event to be registered before clearing suggestions
     setTimeout(() => {
       setIsFocused(false);
       setSuggestions([]);
@@ -259,8 +258,8 @@ const Map = ({ parkLatLong, parkBoundary, parkName }) => {
 
             <form
               onSubmit={(e) => {
-                e.preventDefault(); // Prevent default form submission behavior
-                calcRouteDirection(); // Call calcRouteDirection function
+                e.preventDefault();
+                calcRouteDirection();
               }}
             >
               <input

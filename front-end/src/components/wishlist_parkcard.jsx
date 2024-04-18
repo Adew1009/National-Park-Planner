@@ -17,7 +17,6 @@ function WishListCard({
   setVisits,
   updateVisits,
 }) {
-  // Initialize images as an empty array
   const removeWishList = async (id) => {
     try {
       let response = await api.delete(`wishlist/wishlist/${id}/`);
@@ -54,24 +53,16 @@ function WishListCard({
       </Card.Body>
       <Carousel>
         {images &&
-          images.map(
-            (
-              image,
-              index // Add a check to ensure images is not undefined before mapping
-            ) => (
-              <Carousel.Item interval={10000} key={index}>
-                <img
-                  src={image.url}
-                  style={{ width: "100%", height: "400px" }}
-                />
-                <Carousel.Caption>
-                  <h5 className="text-info bg-success bg-opacity-75">
-                    {image.title}
-                  </h5>
-                </Carousel.Caption>
-              </Carousel.Item>
-            )
-          )}
+          images.map((image, index) => (
+            <Carousel.Item interval={10000} key={index}>
+              <img src={image.url} style={{ width: "100%", height: "400px" }} />
+              <Carousel.Caption>
+                <h5 className="text-info bg-success bg-opacity-75">
+                  {image.title}
+                </h5>
+              </Carousel.Caption>
+            </Carousel.Item>
+          ))}
       </Carousel>
       <ListGroup className="list-group-flush">
         <span>

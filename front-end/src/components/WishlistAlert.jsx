@@ -19,28 +19,8 @@ export function WishlistAlert({
   setWishlist,
   updateWishlist,
 }) {
-  // const [wishlist, setWishlist] = useState([]);
-
-  // const getWishlist = async () => {
-  //   try {
-  //     let response = await api.get(`wishlist/allwishlist/`);
-  //     let results = response.data;
-  //     // console.log(results);
-  //     setWishlist(results);
-  //     // setLoading(false);
-  //   } catch (error) {
-  //     console.error("An error occurred:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getWishlist();
-  // }, []);
-
   const addWishlist = async (parkCode) => {
     try {
-      // console.log("Add Park Function", parkCode);
-      // Check if the parkCode already exists in the visits array
       if (wishlist.some((wishlist) => wishlist.parkCode === parkCode)) {
         console.log("This park has already been added.");
         return; // Exit early if the parkCode already exists
@@ -49,7 +29,7 @@ export function WishlistAlert({
       let response = await api.post("wishlist/allwishlist/", {
         parkCode: parkCode,
       });
-      // If the visit was added successfully, update the visits state
+
       setWishlist([...wishlist, response.data]);
       console.log(wishlist);
       updateWishlist();
