@@ -15,8 +15,10 @@ from rest_framework.status import (
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
 from .models import App_user
 from datetime import datetime, timedelta
+from .serializer import UserSerializer
 # from utilities import HttpOnlyTokenAuthentication
 
 # Create your views here.
@@ -72,7 +74,8 @@ class Log_in(APIView):
             # else
             # return INSERT token (user) VALUES (user)
             token, created = Token.objects.get_or_create(user=user)
-            return Response({"user": user.display_name, "token": token.key}, status=HTTP_200_OK)
+            # return Response({"user": user.email, "token": token.key}, status=HTTP_200_OK)
+        return Response({"display_name": request.user.display_name, "user": request.user.email, "token": token.key}, status=HTTP_200_OK)
     #! ******UNCOMMENT AND REPLACE IF STATEMENT FOR COOKIE USE*************
     # TODO set sercure to true for deployment
         # if user:
@@ -116,27 +119,34 @@ class Info(TokenReq):
     # permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        return Response({"user": request.user.email})
+        # return Response({"email": request.user.email, "display name": request.user.display_name, "user name": request.user.username})
+        return Response({"display_name": request.user.display_name, "user": request.user.email})
 
     def put(self, request):
         try:
             data = request.data.copy()
             ruser = request.user
-            # check for display_name, age, address
+
             ruser.display_name = data.get("display_name", ruser.display_name)
+            ser_user = UserSerializer(instance=ruser, data=data)
+            if ser_user.is_valid():
+                ser_user.save()
             # authenticate credential
             cur_pass = data.get("password")
             if cur_pass and data.get("new_password"):
                 auth_user = authenticate(
                     username=ruser.username, password=cur_pass)
+                print(auth_user)
+                print(ruser.username, ruser.password)
                 if auth_user == ruser:
-                    ruser.set_password(data.get("new_password"))
+                    print("auth user matches")
 
-            # if credentials match the user
-            # update password and save it
-            ruser.full_clean()
-            ruser.save()
-            return Response({"display_name": ruser.display_name})
+                    ruser.set_password(data.get("new_password"))
+                    ruser.full_clean()
+                    ruser.save()
+
+            return Response(ruser.display_name, status=HTTP_200_OK)
+            # return Response({"display_name": ruser.display_name})
         except ValidationError as e:
             print(e)
             return Response(e, status=HTTP_400_BAD_REQUEST)

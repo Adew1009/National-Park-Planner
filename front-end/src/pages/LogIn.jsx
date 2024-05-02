@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useOutletContext } from "react-router-dom";
 import { userLogIn } from "../utilities";
+import { NavLink } from "react-router-dom";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
@@ -12,12 +13,7 @@ const LogIn = () => {
   return (
     <>
       <h1>Log In</h1>
-      <Form
-        onSubmit={async (e) => [
-          e.preventDefault(),
-          setUser(await userLogIn(email, password)),
-        ]}
-      >
+      <Form onSubmit={async (e) => [setUser(await userLogIn(email, password))]}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control

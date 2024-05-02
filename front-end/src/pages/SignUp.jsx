@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useOutletContext, useNavigate } from "react-router-dom";
-import { userRegistration, userLogIn } from "../utilities";
+import { userRegistration, userLogIn, userConfirmation } from "../utilities";
+// import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -17,6 +18,7 @@ const SignUp = () => {
         onSubmit={async (e) => [
           e.preventDefault(),
           setUser(await userRegistration(email, password)),
+          await userConfirmation(),
         ]}
       >
         <Form.Group className="mb-3" controlId="formBasicEmail">

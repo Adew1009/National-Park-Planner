@@ -16,10 +16,12 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { userRegistration, userLogIn } from "../utilities";
+import { userConfirmation } from "../utilities";
 
 const SignupDialog = ({ setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate(); // Use useNavigate hook
   // const { setUser } = useOutletContext();
 
   return (
@@ -43,8 +45,11 @@ const SignupDialog = ({ setUser }) => {
           <div>
             <Form
               onSubmit={async (e) => [
-                e.preventDefault(),
                 setUser(await userRegistration(email, password)),
+                navigate("/"),
+                await userConfirmation(),
+                navigate("/"),
+                e.preventDefault(),
               ]}
             >
               <Form.Group className="mb-3" controlId="formBasicEmail">

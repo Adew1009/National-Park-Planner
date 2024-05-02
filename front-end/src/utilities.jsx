@@ -32,9 +32,7 @@ export const userRegistration = async (email, password) => {
       let { user, token } = response.data;
       localStorage.setItem("token", token);
       api.defaults.headers.common["Authorization"] = `Token ${token}`;
-
-      //!Doesnt Work need to change
-      await userLogIn(email, password);
+      userLogIn(email, password);
 
       return user.display_name;
     } else {

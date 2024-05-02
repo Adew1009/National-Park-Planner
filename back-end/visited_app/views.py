@@ -63,7 +63,7 @@ class A_Visit(TokenReq):
     def put(self, request, visit_id):
         visited_entry = self.get_visit(request, visit_id)
         ser_visit = VisitedSerializer(
-            visited_entry, data=request.data, partial=True)
+            visitefd_entry, data=request.data, partial=True)
         if ser_visit.is_valid():
             ser_visit.save()
             return Response(ser_visit.data, status=HTTP_200_OK)

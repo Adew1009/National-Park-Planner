@@ -26,7 +26,7 @@ const Map = ({ latlong, code, color }) => {
       });
       map.addControl(compassControl, "top-right");
 
-      console.log(latlong);
+      //! Conditional Rendering
       if (latlong) {
         latlong.forEach((coord) => {
           const popup = new mapboxgl.Popup().setText(coord[1]);
