@@ -7,7 +7,7 @@ class Park(models.Model):
     url = models.URLField(max_length=2000)
     fullName = models.CharField(max_length=2000)
     parkCode = models.CharField(
-        primary_key=True,  unique=True, null=False)
+        primary_key=True, max_length=5, unique=True, null=False)
     description = models.TextField()
     latitude = models.CharField(
         max_length=200, null=True)
