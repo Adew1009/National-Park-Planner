@@ -42,7 +42,8 @@ You will also need to obtain an API key from:
 - [Tailwind CSS](https://tailwindcss.com/) - CSS Framework
 - [shadcn/ui](https://ui.shadcn.com/) - User Interface Component Library
 - [React Bootstrap](https://react-bootstrap.netlify.app/) - Front-End Framework
-- [OpenAI API](https://openai.com/index/openai-api/) - Chatbot Functionality
+- [NPS API](https://www.nps.gov/subjects/developer/api-documentation.htm) - National Park Data and Alerts
+- [Mapbox API](https://www.mapbox.com/) - Map Display Directions Display
 
 
 ## Author
