@@ -5,18 +5,18 @@ The National Park Planner is a one-stop destination to plan and remember your vi
 ## Searching For a Park
 
 
-  <div>   <img><img src="https://github.com/Adew1009/National-Park-Planner/edit/main/FindPark.png" height=50% width=70%></div>
+  <div>   <img><img src="https://github.com/Adew1009/National-Park-Planner/blob/main/FindPark.png" height=50% width=70%></div>
 
 
 ## Individual Park Page
 
 
-   <div> <img><img src="https://github.com/Adew1009/National-Park-Planner/edit/main/ParkPage.jpeg" height=50% width=70%></div>
+   <div> <img><img src="https://github.com/Adew1009/National-Park-Planner/blob/main/ParkPage.jpeg" height=50% width=70%></div>
 
 ## Visited Park Page
 
 
-   <div> <img><img src="https://github.com/Adew1009/National-Park-Planner/edit/main/visitedparks.png" height=50% width=70%></div>
+   <div> <img><img src="https://github.com/Adew1009/National-Park-Planner/blob/main/visitedparks.png" height=50% width=70%></div>
 
 ## Getting Started
 
