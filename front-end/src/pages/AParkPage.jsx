@@ -266,32 +266,28 @@ const AParkPage = () => {
             </ListGroup>
             <Container>
               <Row>
-                <Col className="d-flex flex-column justify-content-around border rounded">
-                  <h3 className="primary-title text-center rounded">
-                    Map and Directions to {name}
+                <Col className="d-flex flex-column justify-content-start border rounded">
+                  <h3 className="primary-title text-center rounded mb-3">
+                    Pictures of {name}
                   </h3>
                   <Carousel>
-                    {parkImages.map(
-                      (
-                        image,
-                        index // Corrected map function syntax
-                      ) => (
-                        <Carousel.Item interval={4000} key={index}>
-                          <img
-                            src={image.url}
-                            alt={image.title}
-                            style={{ width: "100%" }}
-                          />
-                          <Carousel.Caption>
-                            <h3 className=" text-info bg-success bg-opacity-50">
-                              {image.title}
-                            </h3>
-                          </Carousel.Caption>
-                        </Carousel.Item>
-                      )
-                    )}
+                    {parkImages.map((image, index) => (
+                      <Carousel.Item interval={4000} key={index}>
+                        <img
+                          src={image.url}
+                          alt={image.title}
+                          style={{ width: "100%" }}
+                        />
+                        <Carousel.Caption>
+                          <h3 className="text-info bg-success bg-opacity-50">
+                            {image.title}
+                          </h3>
+                        </Carousel.Caption>
+                      </Carousel.Item>
+                    ))}
                   </Carousel>
                 </Col>
+
                 <Col className="d-flex flex-column justify-content-around border rounded">
                   {mapLoading ? (
                     <div>
