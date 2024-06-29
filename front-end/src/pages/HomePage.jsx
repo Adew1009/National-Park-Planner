@@ -34,7 +34,7 @@ const HomePage = () => {
               <Col className="m-auto">
                 <Image
                   className="d-block mx-auto img-fluid w-75"
-                  src="https://angelastaehling.com/cdn/shop/products/US-National-Parks-Map-Blue_1500x.png?v=1660134768"
+                  src="https://i.etsystatic.com/6408581/r/il/7fad77/2041264072/il_1588xN.2041264072_s7yt.jpg"
                 />
               </Col>
             </Row>
