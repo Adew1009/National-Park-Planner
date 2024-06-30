@@ -24,6 +24,7 @@ To install and run this project you will need to be familiar with:
 -React JS
 -Django
 -PostgreSQL
+-Cypress
 
 You will also need to obtain an API key from:
 
